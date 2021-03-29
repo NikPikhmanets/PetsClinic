@@ -1,0 +1,17 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="4" author="nik pikhmanets">
+        <comment>Insert admin to Users</comment>
+        <insert tableName="users">
+            <column name="name" value="ADMIN"/>
+            <column name="surname" value="Adminovi4"/>
+            <column name="email" value="admin@pclininc.com"/>
+            <column name="password" value="$2y$12$yDV7rNq3hqDsDIrkDcmmRuX3AApFvU5o.DaC0RpPz6vY2LQZoLZqS"/>
+            <column name="phone_number" value="+380123456789"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
