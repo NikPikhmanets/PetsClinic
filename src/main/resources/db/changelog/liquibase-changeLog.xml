@@ -6,6 +6,10 @@
 
     <include file="changes/role/create-table-role.xml" relativeToChangelogFile="true"/>
     <include file="changes/role/insert-names-roles.xml" relativeToChangelogFile="true"/>
+
     <include file="changes/user/create-table-user.xml" relativeToChangelogFile="true"/>
     <include file="changes/user/insert-admin.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/user-role/create-table-user-role.xml" relativeToChangelogFile="true"/>
+    <include file="changes/user-role/insert-role-for-test-user.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
