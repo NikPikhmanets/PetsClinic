@@ -12,6 +12,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    mySqlConnectorVersion = '8.0.22'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -19,7 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-    runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly "mysql:mysql-connector-java:${mySqlConnectorVersion}"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
