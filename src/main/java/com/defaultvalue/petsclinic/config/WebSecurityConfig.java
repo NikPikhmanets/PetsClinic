@@ -1,6 +1,5 @@
 package com.defaultvalue.petsclinic.config;
 
-import com.defaultvalue.petsclinic.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,39 +8,35 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(UserService userService) {
-        this.userService = userService;
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
-        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/", "/index", "/login", "/js/**", "/css/**").permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests().antMatchers("/info").hasAnyRole("ADMIN", "USER")
                 .and()
-                .formLogin()//
+                .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/info")
                 .failureUrl("/login?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
@@ -49,13 +44,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
     }
 
-//    @Bean
-//    public AuthenticationManager customAuthenticationManager() throws Exception {
-//        return authenticationManager();
-//    }
+    @Bean
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+        return authenticationManager();
+    }
 
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
