@@ -15,4 +15,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
                     "   INNER JOIN roles r ON r.id = ur.role_id " +
                     "WHERE ur.user_id = :userId", nativeQuery = true)
     List<Role> findRolesByUserId(int userId);
+
+    void insertRoleForUser(Integer id);
 }
