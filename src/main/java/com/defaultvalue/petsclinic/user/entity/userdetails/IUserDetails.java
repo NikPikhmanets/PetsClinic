@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic.user;
+package com.defaultvalue.petsclinic.user.entity.userdetails;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

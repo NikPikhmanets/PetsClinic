@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

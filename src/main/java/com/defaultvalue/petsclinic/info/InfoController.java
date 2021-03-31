@@ -3,24 +3,31 @@ package com.defaultvalue.petsclinic.info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
 public class InfoController {
-    @Autowired
-    private IInfoService service;
 
-    @RequestMapping("/info")
-    public @ResponseBody
-    String userInfo(Authentication authentication) {
-        String msg = "";
-        for (GrantedAuthority authority : authentication.getAuthorities()) {
-            String role = authority.getAuthority();
-            msg = String.format("%s%s", msg, service.getMsg() + authentication.getName() + ", You have " + role);
-        }
-        return msg;
+    private final IInfoService service;
+
+    @Autowired
+    public InfoController(IInfoService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/info")
+    public List<String> userInfo(Authentication authentication) {
+        return getCollect(authentication);
+    }
+
+    private List<String> getCollect(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .map(role -> String.format("%s %s", service.getMsg(), authentication.getName() + ", You have " + role))
+                .collect(Collectors.toList());
     }
 }
