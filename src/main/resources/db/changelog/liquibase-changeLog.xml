@@ -12,4 +12,6 @@
 
     <include file="changes/user-role/create-table-user-role.xml" relativeToChangelogFile="true"/>
     <include file="changes/user-role/insert-role-for-test-user.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/user/rename-column-updated-at.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
