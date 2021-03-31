@@ -1,28 +1,20 @@
 package com.defaultvalue.petsclinic.user.entity.userdetails;
 
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Builder
+@Data
 public class IUserDetails implements UserDetails {
 
     private String username;
     private String password;
     private boolean enabled;
     private Collection<GrantedAuthority> roles;
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setAuthorities(Collection<GrantedAuthority> roles) {
-        this.roles = roles;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

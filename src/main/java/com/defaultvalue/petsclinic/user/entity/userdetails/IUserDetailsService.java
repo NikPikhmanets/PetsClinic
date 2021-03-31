@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.defaultvalue.petsclinic.user.Constants.PREFIX_ROLE;
+
 @Service
 public class IUserDetailsService implements UserDetailsService {
 
@@ -48,20 +50,18 @@ public class IUserDetailsService implements UserDetailsService {
     }
 
     private IUserDetails getUserDetails(User user, Collection<GrantedAuthority> grantList) {
-        IUserDetails userDetails = new IUserDetails();
-        userDetails.setUsername(user.getEmail());
-        userDetails.setPassword(user.getPassword());
-        userDetails.setEnabled(user.isEnabled());
-        userDetails.setAuthorities(grantList);
-
-        return userDetails;
+        return IUserDetails.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .enabled(user.isEnabled())
+                .roles(grantList).build();
     }
 
     private Collection<GrantedAuthority> getGrantedAuthorities(User user) {
         List<Role> roles = roleRepository.findRolesByUserId(user.getId());
 
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+                .map(role -> new SimpleGrantedAuthority(PREFIX_ROLE + role.getName()))
                 .collect(Collectors.toSet());
     }
 }
