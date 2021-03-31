@@ -1,9 +1,8 @@
-package com.defaultvalue.petsclinic.user.entity.userdetails;
+package com.defaultvalue.petsclinic.login;
 
 
 import com.defaultvalue.petsclinic.role.Role;
 import com.defaultvalue.petsclinic.role.RoleRepository;
-import com.defaultvalue.petsclinic.user.UserRepository;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,12 +22,12 @@ import static com.defaultvalue.petsclinic.user.Constants.PREFIX_ROLE;
 @Service
 public class IUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserDetailsRepository userRepository;
     private final RoleRepository roleRepository;
 
     @Autowired
-    public IUserDetailsService(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
+    public IUserDetailsService(UserDetailsRepository userDetailsRepository, RoleRepository roleRepository) {
+        this.userRepository = userDetailsRepository;
         this.roleRepository = roleRepository;
     }
 

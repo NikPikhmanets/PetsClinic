@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic.user.entity.userdetails;
+package com.defaultvalue.petsclinic.login;
 
 import lombok.Builder;
 import lombok.Data;
