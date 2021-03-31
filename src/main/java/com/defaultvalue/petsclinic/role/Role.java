@@ -1,10 +1,11 @@
 package com.defaultvalue.petsclinic.role;
 
-import com.defaultvalue.petsclinic.user.User;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity(name = "roles")
 public class Role implements GrantedAuthority {
