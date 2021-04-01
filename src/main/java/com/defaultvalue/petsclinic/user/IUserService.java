@@ -1,6 +1,5 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.role.Role;
 import com.defaultvalue.petsclinic.role.RoleRepository;
 import com.defaultvalue.petsclinic.role.UsersRoles;
 import com.defaultvalue.petsclinic.user.entity.User;
@@ -38,7 +37,7 @@ public class IUserService implements UserService {
     private void setRoleForNewUser(User user) {
         if (isNotNull(user)) {
             UsersRoles usersRoles = new UsersRoles();
-            usersRoles.setUserId(user.getId());
+//            usersRoles.setUserId(user.getId());
             usersRoles.setRoleId(ID_ROLE_USER);
 
 //            roleRepository.insertRoleForUser();
