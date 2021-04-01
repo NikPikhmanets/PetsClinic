@@ -7,13 +7,13 @@
     <changeSet id="insert-names-roles" author="nik pikhmanets">
         <comment>Insert names of Roles</comment>
         <insert tableName="roles">
-            <column name="name" value="ADMIN"/>
+            <column name="name" value="USER"/>
         </insert>
         <insert tableName="roles">
             <column name="name" value="DOCTOR"/>
         </insert>
         <insert tableName="roles">
-            <column name="name" value="USER"/>
+            <column name="name" value="ADMIN"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

@@ -10,5 +10,9 @@
             <column name="user_id" value="1"/>
             <column name="role_id" value="1"/>
         </insert>
+        <insert tableName="users_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="3"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

@@ -15,9 +15,9 @@
             <column name="email" type="VARCHAR(255)"/>
             <column name="password" type="VARCHAR(255)"/>
             <column name="phone_number" type="VARCHAR(100)"/>
-            <column name="birthday" type="TIMESTAMP"/>
-            <column name="created_at" type="TIMESTAMP"/>
-            <column name="update_at" type="TIMESTAMP"/>
+            <column name="birthday" type="DATE"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
             <column name="enabled" type="BOOLEAN" defaultValue="1"/>
         </createTable>
     </changeSet>

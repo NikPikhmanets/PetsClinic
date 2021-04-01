@@ -7,10 +7,10 @@
     <changeSet id="insert-admin" author="nik pikhmanets">
         <comment>Insert admin to Users</comment>
         <insert tableName="users">
-            <column name="name" value="ADMIN"/>
-            <column name="surname" value="Adminovi4"/>
-            <column name="email" value="admin@pclininc.com"/>
-            <column name="password" value="$2y$12$yDV7rNq3hqDsDIrkDcmmRuX3AApFvU5o.DaC0RpPz6vY2LQZoLZqS"/>
+            <column name="name" value="Nik"/>
+            <column name="surname" value="Petrov"/>
+            <column name="email" value="admin@pc.com"/>
+            <column name="password" value="$2y$12$ew9DCbbei9TIjFsL1vpOgeKIsEKZDScaLsQZlOSDjPlaTRGTbLIea"/>
             <column name="phone_number" value="+380123456789"/>
         </insert>
     </changeSet>
