@@ -1,14 +1,15 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.role.Role;
 import com.defaultvalue.petsclinic.role.RoleRepository;
-import com.defaultvalue.petsclinic.role.UsersRoles;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
-import static com.defaultvalue.petsclinic.user.Constants.ID_ROLE_USER;
+import static com.defaultvalue.petsclinic.user.Constants.ROLE_USER;
 
 @Service
 public class IUserService implements UserService {
@@ -24,27 +25,20 @@ public class IUserService implements UserService {
 
     @Override
     public void saveUser(User user) {
-        updateUser(user);
-        User newUser = userRepository.save(user);
-        setRoleForNewUser(newUser);
+        User updateUser = updateUser(user);
+        userRepository.save(updateUser);
     }
 
-    private void updateUser(User user) {
+    private User updateUser(User user) {
+        Role role = getRoleUser();
+        user.setRoleSet(Collections.singleton(role));
         user.setEnabled(true);
         user.setCreatedAt(LocalDateTime.now());
+
+        return user;
     }
 
-    private void setRoleForNewUser(User user) {
-        if (isNotNull(user)) {
-            UsersRoles usersRoles = new UsersRoles();
-//            usersRoles.setUserId(user.getId());
-            usersRoles.setRoleId(ID_ROLE_USER);
-
-//            roleRepository.insertRoleForUser();
-        }
-    }
-
-    private <T> boolean isNotNull(T t) {
-        return t != null;
+    private Role getRoleUser() {
+        return roleRepository.findByName(ROLE_USER);
     }
 }

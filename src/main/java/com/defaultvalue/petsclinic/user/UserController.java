@@ -17,17 +17,8 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-//
-//    @PostMapping
-//    public String save() {
-//        User user = getUserForTest();
-//
-//        userService.saveUser(user);
-//
-//        return "ok";
-//    }
 
-    @GetMapping("1")
+    @GetMapping("1")  // TODO for test
     @ResponseBody
     public String newUser() {
         User user = getUserForTest();
@@ -39,7 +30,7 @@ public class UserController {
     private User getUserForTest() {
         User user = new User();
         user.setEmail("qwerty");
-        user.setPassword("$2y$12$P0RfRQFdZKPFLoxtEJmNl..r1gJwd8D2gR2pfIgi5wDOCgVNCL0aO");
+        user.setPassword("$2y$12$ew9DCbbei9TIjFsL1vpOgeKIsEKZDScaLsQZlOSDjPlaTRGTbLIea"); //TODO 123
         return user;
     }
 }
