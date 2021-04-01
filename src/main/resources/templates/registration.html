@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Registration page</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/signin.css}"/>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+</head>
+<body>
+<p class="container">
+<h3 class="form-signin-heading text-center">Registration</h3>
+<p class="text-center">Create account for registration in events</p>
+
+<form class="form-signin" method="post" th:action="@{/registration}" th:object="${registrationForm}">
+    <p>
+        <label for="email" class="sr-only"></label>
+        <input id="email" name="email" class="form-control" placeholder="Email address" type="text"
+               th:field="*{email}">
+    </p>
+    <p th:if="${#fields.hasErrors('email')}" class="error" style="color:red"
+       th:errors="*{email}"></p>
+
+    <p>
+        <label for="firstname" class="sr-only"></label>
+        <input id="firstname" name="" class="form-control" placeholder="First name" type="text"
+               th:field="*{firstName}">
+    </p>
+    <p>
+        <label for="lastname" class="sr-only"></label>
+        <input id="lastname" name="" class="form-control" placeholder="Last name" type="text"
+               th:field="*{lastName}">
+    </p>
+    <p>
+        <label for="password" class="sr-only"></label>
+        <input id="password" class="form-control" placeholder="Create password" type="password"
+               th:field="*{password}">
+    </p>
+    <p th:if="${#fields.hasErrors('password')}" class="error" style="color:red;visibility: hidden"
+       th:errors="*{password}"></p>
+
+    <p>
+        <label for="confirmPassword" class="sr-only"> </label>
+        <input id="confirmPassword" class="form-control" placeholder="Repeat password" type="password"
+               th:field="*{passwordConfirm}">
+    </p>
+    <p th:if="${#fields.hasErrors('passwordConfirm')}" class="error" style="color:red"
+       th:errors="*{passwordConfirm}"></p>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+    </div>
+    <p class="text-center">Have an account? <a href="/login">Log In</a></p>
+</form>
+</body>
+</html>
+
+
+
+
+

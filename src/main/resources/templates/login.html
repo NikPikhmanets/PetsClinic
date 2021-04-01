@@ -7,19 +7,15 @@
     <meta name="author" content="">
 
     <title>Sign In</title>
-
-    <!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"-->
-    <!--          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
-    <!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">-->
-
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/signin.css}"/>
 </head>
 
 <body>
 <div class="container">
+    <h3 class="form-signin-heading text-center">Please sign in</h3>
+
     <form class="form-signin" method="post" th:action="@{/login}">
-        <h3 class="form-signin-heading text-center">Please sign in</h3>
         <p>
             <label for="username" class="sr-only">Email address</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Email address"
@@ -33,6 +29,8 @@
         </p>
         <p th:if="${loginError}" class="error" style="color:red">Wrong email or password</p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <br>
+        <p class="text-center">Create an account <a href="/registration">Registration</a></p>
     </form>
 </div>
 </body>
