@@ -26,10 +26,6 @@ public class IUserDetails implements UserDetails {
         return password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public String getUsername() {
         return username;
