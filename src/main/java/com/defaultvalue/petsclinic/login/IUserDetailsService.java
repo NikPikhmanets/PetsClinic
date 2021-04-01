@@ -1,8 +1,6 @@
 package com.defaultvalue.petsclinic.login;
 
 
-import com.defaultvalue.petsclinic.role.Role;
-import com.defaultvalue.petsclinic.role.RoleRepository;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,28 +9,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.defaultvalue.petsclinic.user.Constants.PREFIX_ROLE;
 
+@Transactional
 @Service
 public class IUserDetailsService implements UserDetailsService {
 
     private final UserDetailsRepository userRepository;
-    private final RoleRepository roleRepository;
 
     @Autowired
-    public IUserDetailsService(UserDetailsRepository userDetailsRepository, RoleRepository roleRepository) {
+    public IUserDetailsService(UserDetailsRepository userDetailsRepository) {
         this.userRepository = userDetailsRepository;
-        this.roleRepository = roleRepository;
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
     }
 
     @Override
@@ -57,9 +50,7 @@ public class IUserDetailsService implements UserDetailsService {
     }
 
     private Collection<GrantedAuthority> getGrantedAuthorities(User user) {
-        List<Role> roles = roleRepository.findRolesByUserId(user.getId());
-
-        return roles.stream()
+        return user.getRoleSet().stream()
                 .map(role -> new SimpleGrantedAuthority(PREFIX_ROLE + role.getName()))
                 .collect(Collectors.toSet());
     }
