@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic;
+package com.defaultvalue.petsclinic.login;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
