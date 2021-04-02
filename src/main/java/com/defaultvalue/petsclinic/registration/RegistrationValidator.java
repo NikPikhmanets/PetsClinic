@@ -49,22 +49,30 @@ public class RegistrationValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, FIRST_NAME, noEmpty);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, SURNAME, noEmpty);
 
-        if (form.getEmail() == null || !StringUtils.hasText(form.getEmail())) {
+        if (isEmpty(form.getEmail())) {
             errors.rejectValue(EMAIL, noEmpty);
-        } else if (form.getEmail().length() < 2 || form.getEmail().length() > 32) {
+        } else if (isInvalidSize(form.getEmail())) {
             errors.rejectValue(EMAIL, invalidSize);
         } else if (userService.findUserByEmail(form.getEmail()) != null) {
             errors.rejectValue(EMAIL, duplicateEmail);
         }
 
-        if (form.getPassword() == null || !StringUtils.hasText(form.getPassword())) {
+        if (isEmpty(form.getPassword())) {
             errors.rejectValue(PASSWORD, noEmpty);
-        } else if (form.getPassword().length() < 8 || form.getPassword().length() > 32) {
+        } else if (isInvalidSize(form.getPassword())) {
             errors.rejectValue(PASSWORD, shortPassword);
         }
 
         if (!form.getPasswordConfirm().equals(form.getPassword())) {
             errors.rejectValue(PASSWORD_CONFIRM, passwordConfirm);
         }
+    }
+
+    private <T extends String> boolean isInvalidSize(T t) {
+        return t.length() < 8 || t.length() > 32;
+    }
+
+    private <T extends String> boolean isEmpty(T t) {
+        return !StringUtils.hasText(t);
     }
 }
