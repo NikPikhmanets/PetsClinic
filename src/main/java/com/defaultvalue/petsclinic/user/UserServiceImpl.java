@@ -12,13 +12,13 @@ import java.util.Collections;
 import static com.defaultvalue.petsclinic.user.Constants.ROLE_USER;
 
 @Service
-public class IUserService implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
     @Autowired
-    public IUserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }

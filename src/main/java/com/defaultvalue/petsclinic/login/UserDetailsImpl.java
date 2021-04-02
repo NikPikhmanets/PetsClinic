@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @Builder
 @Data
-public class IUserDetails implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private String username;
     private String password;

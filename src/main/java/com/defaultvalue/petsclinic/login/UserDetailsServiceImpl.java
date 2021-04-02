@@ -5,7 +5,6 @@ import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,17 +18,17 @@ import static com.defaultvalue.petsclinic.user.Constants.PREFIX_ROLE;
 
 @Transactional
 @Service
-public class IUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserDetailsRepository userRepository;
 
     @Autowired
-    public IUserDetailsService(UserDetailsRepository userDetailsRepository) {
+    public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository) {
         this.userRepository = userDetailsRepository;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isEmpty()) {
@@ -41,8 +40,8 @@ public class IUserDetailsService implements UserDetailsService {
         return getUserDetails(user, grantList);
     }
 
-    private IUserDetails getUserDetails(User user, Collection<GrantedAuthority> grantList) {
-        return IUserDetails.builder()
+    private UserDetailsImpl getUserDetails(User user, Collection<GrantedAuthority> grantList) {
+        return UserDetailsImpl.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
                 .enabled(user.isEnabled())

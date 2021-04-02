@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @RestController
 public class InfoController {
 
-    private final IInfoService service;
+    private final InfoService service;
 
     @Autowired
-    public InfoController(IInfoService service) {
+    public InfoController(InfoService service) {
         this.service = service;
     }
 
