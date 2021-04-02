@@ -1,9 +1,10 @@
 package com.defaultvalue.petsclinic.registration;
 
+import com.defaultvalue.petsclinic.user.UserService;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -11,10 +12,10 @@ import org.springframework.validation.Validator;
 @Component
 public class RegistrationValidator implements Validator {
 
-    private final UserDetailsService userService;
+    private final UserService userService;
 
     @Autowired
-    public RegistrationValidator(UserDetailsService userService) {
+    public RegistrationValidator(UserService userService) {
         this.userService = userService;
     }
 
@@ -27,19 +28,23 @@ public class RegistrationValidator implements Validator {
     public void validate(Object target, Errors errors) {
         RegistrationForm form = (RegistrationForm) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "Size.userForm.noEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "Size.userForm.noEmpty");
 
-        if (form.getEmail().length() < 2 || form.getEmail().length() > 32) {
-            errors.rejectValue("email", "Size.userForm.email");
-        }
-        if (userService.loadUserByUsername(form.getEmail()) != null) {
+        if (form.getEmail() == null || !StringUtils.hasText(form.getEmail())) {
+            errors.rejectValue("email", "Size.userForm.noEmpty");
+        } else if (form.getEmail().length() < 2 || form.getEmail().length() > 32) {
+            errors.rejectValue("email", "Size.userForm.size");
+        } else if (userService.findUserByEmail(form.getEmail()) != null) {
             errors.rejectValue("email", "Duplicate.userForm.email");
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 
-        if (form.getPassword().length() < 8 || form.getPassword().length() > 32) {
+        if (form.getPassword() == null || !StringUtils.hasText(form.getPassword())) {
+            errors.rejectValue("password", "Size.userForm.noEmpty");
+        } else if (form.getPassword().length() < 8 || form.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
+
         if (!form.getPasswordConfirm().equals(form.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }

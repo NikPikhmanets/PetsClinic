@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegistrationController {
 
-    private final RegistrationService registrationService;
+    private final RegistrationValidator registrationValidator;
 
     @Autowired
-    public RegistrationController(RegistrationService registrationService) {
-        this.registrationService = registrationService;
+    public RegistrationController(RegistrationValidator registrationValidator) {
+        this.registrationValidator = registrationValidator;
     }
 
     @GetMapping("/registration")
@@ -28,7 +28,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registration(@ModelAttribute("registrationForm") RegistrationForm form,
                                BindingResult bindingResult) {
-        registrationService.validate(form, bindingResult);
+        registrationValidator.validate(form, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";

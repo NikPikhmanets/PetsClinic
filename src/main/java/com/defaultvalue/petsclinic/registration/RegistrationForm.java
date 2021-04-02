@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class RegistrationForm {
 
     private String firstName;
-    private String lastName;
+    private String surname;
     private String email;
     private String phoneNumber;
     private LocalDate birthday;
