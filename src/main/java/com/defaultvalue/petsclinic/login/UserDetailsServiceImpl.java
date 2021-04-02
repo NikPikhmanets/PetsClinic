@@ -8,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 
 import static com.defaultvalue.petsclinic.user.Constants.PREFIX_ROLE;
 
-@Transactional
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -49,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private Collection<GrantedAuthority> getGrantedAuthorities(User user) {
-        return user.getRoleSet().stream()
+        return user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(PREFIX_ROLE + role.getName()))
                 .collect(Collectors.toSet());
     }

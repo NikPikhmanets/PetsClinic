@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic.role;
+package com.defaultvalue.petsclinic.user.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

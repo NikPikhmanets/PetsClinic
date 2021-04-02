@@ -1,7 +1,7 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.role.Role;
-import com.defaultvalue.petsclinic.role.RoleRepository;
+import com.defaultvalue.petsclinic.user.role.Role;
+import com.defaultvalue.petsclinic.user.role.RoleRepository;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     private User updateUser(User user) {
         Role role = getRoleUser();
-        user.setRoleSet(Collections.singleton(role));
+        user.setRoles(Collections.singleton(role));
         user.setEnabled(true);
         user.setCreatedAt(LocalDateTime.now());
 

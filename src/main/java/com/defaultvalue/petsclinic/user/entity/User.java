@@ -1,6 +1,6 @@
 package com.defaultvalue.petsclinic.user.entity;
 
-import com.defaultvalue.petsclinic.role.Role;
+import com.defaultvalue.petsclinic.user.role.Role;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,5 +30,5 @@ public class User {
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet;
+    private Set<Role> roles;
 }
