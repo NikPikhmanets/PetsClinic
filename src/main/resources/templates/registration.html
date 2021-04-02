@@ -14,44 +14,48 @@
 </head>
 <body>
 <p class="container">
-<h3 class="form-signin-heading text-center">Registration</h3>
+<h3 class="form-input-heading text-center">Registration</h3>
 <p class="text-center">Create account for registration in events</p>
 
-<form class="form-signin" method="post" th:action="@{/registration}" th:object="${registrationForm}">
-    <p>
-        <label for="email" class="sr-only"></label>
-        <input id="email" name="email" class="form-control" placeholder="Email address" type="text"
-               th:field="*{email}">
-    </p>
-    <p th:if="${#fields.hasErrors('email')}" class="error" style="color:red"
-       th:errors="*{email}"></p>
-
+<form class="form-input" method="post" th:action="@{/registration}" th:object="${registrationForm}">
     <p>
         <label for="firstname" class="sr-only"></label>
-        <input id="firstname" name="" class="form-control" placeholder="First name" type="text"
+        <input id="firstname" name="firstName" class="form-control" placeholder="First name" type="text"
                th:field="*{firstName}">
+        <span th:if="${#fields.hasErrors('firstName')}" class="error" th:errors="*{firstName}"></span>
     </p>
     <p>
         <label for="lastname" class="sr-only"></label>
         <input id="lastname" name="" class="form-control" placeholder="Last name" type="text"
-               th:field="*{lastName}">
+               th:field="*{surname}">
+        <span th:if="${#fields.hasErrors('surname')}" class="error" th:errors="*{surname}"></span>
+    </p>
+    <p>
+        <label for="email" class="sr-only"></label>
+        <input id="email" name="email" class="form-control" placeholder="Email address" type="text"
+               th:field="*{email}">
+        <span th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}"></span>
+    </p>
+    <p>
+        <label for="phone" class="sr-only"></label>
+        <input id="phone" name="phone" class="form-control" placeholder="+380XXXXXXXXX" type="tel">
+    </p>
+    <p>
+        <label for="birthday">Birthday </label>
+        <input type="date" id="birthday" name="birthday">
     </p>
     <p>
         <label for="password" class="sr-only"></label>
         <input id="password" class="form-control" placeholder="Create password" type="password"
                th:field="*{password}">
+        <span th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}"></span>
     </p>
-    <p th:if="${#fields.hasErrors('password')}" class="error" style="color:red;visibility: hidden"
-       th:errors="*{password}"></p>
-
     <p>
         <label for="confirmPassword" class="sr-only"> </label>
-        <input id="confirmPassword" class="form-control" placeholder="Repeat password" type="password"
+        <input id="confirmPassword" class="form-control" placeholder="Confirm password" type="password"
                th:field="*{passwordConfirm}">
+        <span th:if="${#fields.hasErrors('passwordConfirm')}" class="error" th:errors="*{passwordConfirm}"></span>
     </p>
-    <p th:if="${#fields.hasErrors('passwordConfirm')}" class="error" style="color:red"
-       th:errors="*{passwordConfirm}"></p>
-
     <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block">Create Account</button>
     </div>
