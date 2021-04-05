@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert-names-speciality" author="nik pikhmanets">
+        <comment>Insert names of Speciality</comment>
+        <insert tableName="specialties">
+            <column name="name" value="Therapist"/>
+        </insert>
+        <insert tableName="specialties">
+            <column name="name" value="Surgeon"/>
+        </insert>
+        <insert tableName="specialties">
+            <column name="name" value="Traumatologist"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

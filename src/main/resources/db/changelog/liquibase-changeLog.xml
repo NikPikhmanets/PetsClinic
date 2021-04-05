@@ -12,4 +12,9 @@
 
     <include file="changes/user-role/create-table-user-role.xml" relativeToChangelogFile="true"/>
     <include file="changes/user-role/insert-role-for-test-user.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/specialty/create-table-specialty.xml" relativeToChangelogFile="true"/>
+    <include file="changes/specialty/insert-names-speciality.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/specialty-doctor/create-table-specialty-doctor.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
