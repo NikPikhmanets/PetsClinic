@@ -11,7 +11,8 @@ import java.util.Collection;
 @Data
 public class UserDetailsImpl implements UserDetails {
 
-    private String username;
+    private long id;
+    private String email;
     private String password;
     private boolean enabled;
     private Collection<GrantedAuthority> roles;
@@ -28,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

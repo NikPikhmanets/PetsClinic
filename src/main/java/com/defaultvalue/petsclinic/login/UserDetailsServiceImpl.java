@@ -40,7 +40,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDetailsImpl getUserDetails(User user, Collection<GrantedAuthority> grantList) {
         return UserDetailsImpl.builder()
-                .username(user.getEmail())
+                .id(user.getId())
+                .email(user.getEmail())
                 .password(user.getPassword())
                 .enabled(user.isEnabled())
                 .roles(grantList).build();
