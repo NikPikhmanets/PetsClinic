@@ -24,7 +24,7 @@ public class UserController {
         this.userConverter = userConverter;
     }
 
-    @GetMapping("/me")
+    @GetMapping("/profile")
     public String me(@AuthenticationPrincipal UserDetailsImpl userDetails,
                      Model model) {
         if (userDetails == null) {
