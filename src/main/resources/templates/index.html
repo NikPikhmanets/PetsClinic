@@ -2,9 +2,149 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pets Clinic</title>
+
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<p>Hello</p>
+<nav class="navbar  navbar-expand-lg navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="/">Pets Clinic</a>
+
+    <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Issues<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#Doctors">Doctors</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/registration">Registration</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/login">LogIn</a>
+            </li>
+        </ul>
+        <div class="navbar-nav m-0">
+            <a class="nav-link" href="/logout">Logout</a>
+        </div>
+
+    </div>
+</nav>
+<div class="container">
+    <div class="d-flex align-content-center justify-content-center p-5">
+        <form class="w-50">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>Dog</option>
+                    <option>Cat</option>
+                    <option>Rat</option>
+                    <option>Snake</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Records</button>
+        </form>
+    </div>
+
+    <section class="bg-light" id="Doctors">
+        <div class="p-5">
+            <h2 class="text-center">About US</h2>
+
+            <p class="text-center mb-5 mt-5">Lorem ipsum dolor sit amet, consetetur sadipscing elitr amet</p>
+            <div class="about-content">
+                <p class="about-content-item">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sediam nonumy
+                    eirmod
+                    tempor invidunt ut labore
+                    et
+                    dolore
+                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo dolores et ea rebum. Stet clita
+                    kasd
+                    gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor et dolore
+                    aliquyam
+                    erat.
+                    Lorem ipsum dolor sit amet. Lorem ipsum eat.</p>
+                <p class="about-content-item">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sediam nonumy
+                    eirtempor
+                    invidunt ut labore et
+                    dolore
+                    aliquyam erat, sed diam voluptua. At vero eos eaccusam et justo dolores et ea rebum. Stet clita kasd
+                    gubergren,
+                    no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor et dolore aliquyam erat.
+                    Loreipsum
+                    dolor sit amet. Lorem ipsum dolor et.</p>
+            </div>
+            <div class="about-media-content slider">
+                <div class="slider-wrapper d-flex">
+                    <div class="about-items slide " id="sl-1">
+                        <img src="https://nationwide-energy.co.uk/wp-content/uploads/2017/07/blank-avatar.jpg"
+                             alt="void">
+                        <p class="about-name">Md. Khalil Uddin</p>
+                        <p class="about-status">Head of Ideas</p>
+                    </div>
+                    <div class="about-items slide" id="sl-2">
+                        <img src="https://nationwide-energy.co.uk/wp-content/uploads/2017/07/blank-avatar.jpg"
+                             alt="void">
+                        <div class="container-social-icons">
+                            <div class="social-icons">
+                                <a href="#" class="facebook-icon"></a>
+                                <a href="#" class="twitter-icon"></a>
+                                <a href="#" class="google-icon"></a>
+                                <a href="#" class="linkedin-icon"></a>
+                            </div>
+                        </div>
+                        <p class="about-name">Rubel Miah</p>
+                        <p class="about-status">Lead WordPress Developer</p>
+                    </div>
+                    <!--                    <div class="about-items slide" id="sl-3">-->
+                    <!--                        <img src="https://nationwide-energy.co.uk/wp-content/uploads/2017/07/blank-avatar.jpg"-->
+                    <!--                             alt="void">-->
+                    <!--                        <div class="container-social-icons">-->
+                    <!--                            <div class="social-icons">-->
+                    <!--                                <a href="#" class="facebook-icon"></a>-->
+                    <!--                                <a href="#" class="twitter-icon"></a>-->
+                    <!--                                <a href="#" class="google-icon"></a>-->
+                    <!--                                <a href="#" class="linkedin-icon"></a>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <p class="about-name">Shamim Mia</p>-->
+                    <!--                        <p class="about-status">Sr. Web Developer</p></div>-->
+                    <!--                    <div class="about-items slide" id="sl-4">-->
+                    <!--                        <img src="https://nationwide-energy.co.uk/wp-content/uploads/2017/07/blank-avatar.jpg"-->
+                    <!--                             alt="void">-->
+                    <!--                        <div class="container-social-icons">-->
+                    <!--                            <div class="social-icons">-->
+                    <!--                                <a href="#" class="facebook-icon"></a>-->
+                    <!--                                <a href="#" class="twitter-icon"></a>-->
+                    <!--                                <a href="#" class="google-icon"></a>-->
+                    <!--                                <a href="#" class="linkedin-icon"></a>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <p class="about-name">John Doe</p>-->
+                    <!--                        <p class="about-status">Front-end Developer</p>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                    <div class="arrows">
+                        <div class="arrow-left slide-left"></div>
+                        <div class="arrow-right slide-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<footer class="bg-dark modal-footer d-block">
+    <p class="text-center text-white">© 2021 Pets Clinic</p>
+</footer>
 </body>
 </html>
