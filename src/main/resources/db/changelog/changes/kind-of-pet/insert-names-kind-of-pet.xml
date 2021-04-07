@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert-names-kinds-of-pets" author="nik pikhmanets">
+        <comment>Insert names of kinds of pets</comment>
+        <insert tableName="kinds_of_pets">
+            <column name="name" value="Dog"/>
+        </insert>
+        <insert tableName="kinds_of_pets">
+            <column name="name" value="Cat"/>
+        </insert>
+        <insert tableName="kinds_of_pets">
+            <column name="name" value="Rat"/>
+        </insert>
+        <insert tableName="kinds_of_pets">
+            <column name="name" value="Snake"/>
+        </insert>
+        <insert tableName="kinds_of_pets">
+            <column name="name" value="Rabbit"/>
+        </insert>
+        <insert tableName="kinds_of_pets">
+            <column name="name" value="Other"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

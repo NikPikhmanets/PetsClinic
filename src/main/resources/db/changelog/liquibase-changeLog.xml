@@ -17,4 +17,7 @@
     <include file="changes/specialty/insert-names-speciality.xml" relativeToChangelogFile="true"/>
 
     <include file="changes/specialty-doctor/create-table-specialty-doctor.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/kind-of-pet/create-table-kind-of-pet.xml" relativeToChangelogFile="true"/>
+    <include file="changes/kind-of-pet/insert-names-kind-of-pet.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
