@@ -1,80 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
-
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" href="/">Veloracing</a>
-
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Events<span class="sr-only">(current)</span></a>
-            </li>
-
-            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
-                <a class="nav-link" href="#">Record</a>
-            </li>
-
-            <li class="nav-item active"  sec:authorize="!isAuthenticated()">
-                <a class="nav-link" href="/registration">Registration</a>
-            </li>
-
-            <li class="nav-item active" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/profile">Profile</a>
-            </li>
-            <li class="nav-item active" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" href="/login">LogIn</a>
-            </li>
-            <li class="nav-item active" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="col-md-8">
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Full Name</h6>
+<th:block th:include="/navbar/navbar">nav</th:block>
+<div class="container">
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <span th:text="${user.name}"></span>
+                        <span th:text="${user.surname}"></span>
+                    </div>
                 </div>
-                <div class="col-sm-9 text-secondary">
-                    <span th:text="${user.name}"></span>
-                    <span th:text="${user.surname}"></span>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <span th:text="${user.email}"></span>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Email</h6>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <span th:text="${user.phoneNumber}"></span>
+                    </div>
                 </div>
-                <div class="col-sm-9 text-secondary">
-                    <span th:text="${user.email}"></span>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Phone</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                    <span th:text="${user.phoneNumber}"></span>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Pets</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                    ...
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Pets</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        ...
+                    </div>
                 </div>
             </div>
         </div>
