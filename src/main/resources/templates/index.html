@@ -3,45 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Pets Clinic</title>
-
-    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
-<nav class="navbar  navbar-expand-lg navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" href="/">Pets Clinic</a>
-
-    <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Issues<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#Doctors">Doctors</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/registration">Registration</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/profile">Profile</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/login">LogIn</a>
-            </li>
-        </ul>
-        <div class="navbar-nav m-0">
-            <a class="nav-link" href="/logout">Logout</a>
-        </div>
-
-    </div>
-</nav>
+<th:block th:include="/navbar/navbar">nav</th:block>
 <div class="container">
     <div class="d-flex align-content-center justify-content-center p-5">
         <form class="w-50">
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Example select</label>
-                <select class="form-control" id="exampleFormControlSelect1">
+                <label for="doctorsFormControlSelect">Doctors</label>
+                <select class="form-control" id="doctorsFormControlSelect">
+                    <option>Dog</option>
+                    <option>Cat</option>
+                    <option>Rat</option>
+                    <option>Snake</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="petsFormControlSelect">Kind of pet</label>
+                <select class="form-control" id="petsFormControlSelect">
                     <option>Dog</option>
                     <option>Cat</option>
                     <option>Rat</option>
@@ -143,7 +124,7 @@
         </div>
     </section>
 </div>
-<footer class="bg-dark modal-footer d-block">
+<footer class="bg-dark modal-footer d-block pt-4 pb-3">
     <p class="text-center text-white">© 2021 Pets Clinic</p>
 </footer>
 </body>
