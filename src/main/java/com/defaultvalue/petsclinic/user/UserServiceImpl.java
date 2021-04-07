@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static com.defaultvalue.petsclinic.user.Constants.ROLE_USER;
 
@@ -50,5 +52,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public List<User> getAllDoctors() {
+        return buildTestUsers();
+    }
+
+    private List<User> buildTestUsers() {
+        List<User> list = new ArrayList<>();
+
+        for (int i = 1; i <= 10; i++) {
+            User user = new User();
+            user.setId((long) i);
+            user.setName("username" + (i * 31));
+            user.setSurname("surname" + (i * 31));
+            user.setEmail("email" + (i * 31));
+            user.setPhoneNumber("phoneNumber" + (i * 31));
+            list.add(user);
+        }
+        return list;
     }
 }
