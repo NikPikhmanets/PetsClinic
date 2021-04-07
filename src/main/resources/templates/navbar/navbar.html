@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav class="navbar  navbar-expand-lg navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="/">Pets Clinic</a>
+
+    <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#Doctors">Doctors</a>
+            </li>
+            <li class="nav-item active" sec:authorize="isAnonymous()">
+                <a class="nav-link" href="/registration">Registration</a>
+            </li>
+            <li class="nav-item active" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/users/me">Profile</a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" href="/login">Change role</a>
+            </li>
+        </ul>
+        <div class="nav-item active" sec:authorize="isAnonymous()">
+            <a class="nav-link" href="/login">Sign In</a>
+        </div>
+        <div class="nav-item active text-white" sec:authorize="isAuthenticated()">
+            <div sec:authentication="name"></div>
+        </div>
+        <div class="nav-item active" sec:authorize="isAuthenticated()">
+            <a class="nav-link" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
