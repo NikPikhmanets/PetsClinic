@@ -15,8 +15,8 @@ function getDoctors() {
                 '<div class="about-item text-center"> ' +
                 '     <img src="https://nationwide-energy.co.uk/wp-content/uploads/2017/07/blank-avatar.jpg"' +
                 '          alt="void">' +
-                '         <p class="about-name">' + data.name + '</p>' +
-                '         <p class="about-speciality">' + data.email + '</p>' +
+                '         <p class="about-name">' + item.name + '</p>' +
+                '         <p class="about-speciality">' + item.email + '</p>' +
                 ' </div>'
             );
         }
@@ -82,14 +82,12 @@ function submitForm() {
         $.ajax({
             type: "post",
             url: url,
-            dataType: "json",
             data: formData,
             success: function (data) {
                 console.log('Submission was successful.');
                 console.log(data);
 
-                $(this).empty();
-                $(this).append(
+                $("#recordsForm").empty().append(
                     '<span class="list-group-item list-group-item-action list-group-item-success">Success!</span>'
                 );
             },

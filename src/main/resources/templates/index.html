@@ -8,10 +8,10 @@
 <body>
 <th:block th:include="/navbar/navbar">nav</th:block>
 <div class="container">
-    <div class="d-inline-block p-5 ml-auto mr-auto">
+    <div class="d-block p-5 text-center">
         <h5 class="mb-5">Make an appointment with a doctor</h5>
 
-        <form class="w-50" id="recordsForm" th:action="@{/issues}">
+        <form class="w-50 m-auto text-left" id="recordsForm" th:action="@{/issues}">
             <div class="form-group">
                 <label for="doctorsFormControlSelect">Doctors</label>
                 <select class="form-control" name="doctorId" id="doctorsFormControlSelect">
