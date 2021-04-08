@@ -71,17 +71,16 @@
             <div class="card-body">
                 <form class="w-50 m-auto text-left" id="addPetForm" th:action="@{/pets}">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Pet's name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                               placeholder="Enter name of pet">
+                        <label for="inputNameOfPet">Pet's name</label>
+                        <input type="text" class="form-control" id="inputNameOfPet" placeholder="Enter name of pet">
                     </div>
                     <div class="form-group">
                         <label for="petsFormControlSelect">Kind of pet</label>
-                        <select class="form-control" name="kindOfPetId" id="petsFormControlSelect">
+                        <select class="form-control" name="kindId" id="petsFormControlSelect">
                             <option></option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Add pet</button>
                 </form>
             </div>
         </div>
@@ -95,24 +94,11 @@
             <th scope="col">Kind</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td><a href="#">Mark</a></td>
-            <td>Otto</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td><a href="#">Jacob</a></td>
-            <td>Thornton</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td><a href="#">Larry</a></td>
-            <td>the Bird</td>
-        </tr>
+        <tbody id="tableOfPets">
         </tbody>
     </table>
 </div>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/profile.js}"></script>
 </body>
 </html>
