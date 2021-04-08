@@ -10,8 +10,10 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)" />
-            <column name="enabled" type="BOOLEAN" defaultValue="1"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="kind_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_petkind_kinds" references="kinds_of_pets(id)"/>
+            </column>
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_petuser_users" references="users(id)"/>
             </column>
