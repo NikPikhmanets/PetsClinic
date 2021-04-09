@@ -24,8 +24,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/me")
-    public String me(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+    @GetMapping("/profile")
+    public String profile(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         if (userDetails == null) {
             return "/login";
         }
