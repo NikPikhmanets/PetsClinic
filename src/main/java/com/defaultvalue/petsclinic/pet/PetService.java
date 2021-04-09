@@ -1,13 +1,11 @@
 package com.defaultvalue.petsclinic.pet;
 
-import com.defaultvalue.petsclinic.pet.kind.KindsOfPet;
+import com.defaultvalue.petsclinic.pet.entity.Pet;
 
 import java.util.List;
 
 public interface PetService {
-    List<KindsOfPet> getKindsOfPet();
-
-    List<Pet> addPet(Pet pet);
+    List<Pet> savePet(Pet pet, long userId);
 
     Pet getPetById(Long id);
 }

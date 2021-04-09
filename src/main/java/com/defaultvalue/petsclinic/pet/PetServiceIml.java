@@ -1,40 +1,33 @@
 package com.defaultvalue.petsclinic.pet;
 
-import com.defaultvalue.petsclinic.pet.kind.KindOfPetRepository;
-import com.defaultvalue.petsclinic.pet.kind.KindsOfPet;
+import com.defaultvalue.petsclinic.pet.entity.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetServiceIml implements PetService {
 
-    private final KindOfPetRepository kindOfPetRepository;
-    private final List<Pet> pets;
+    private final PetRepository petRepository;
 
     @Autowired
-    public PetServiceIml(KindOfPetRepository kindOfPetRepository) {
-        this.kindOfPetRepository = kindOfPetRepository;
-
-        pets = new ArrayList<>();
+    public PetServiceIml(PetRepository petRepository) {
+        this.petRepository = petRepository;
     }
 
     @Override
-    public List<KindsOfPet> getKindsOfPet() {
-        return kindOfPetRepository.findAll();
-    }
+    public List<Pet> savePet(Pet pet, long userId) {
+        pet.setUserId(userId);
+        petRepository.save(pet);
 
-    @Override
-    public List<Pet> addPet(Pet pet) {
-        pets.add(pet);
-
-        return pets;
+        return petRepository.findAllByUserId(userId);
     }
 
     @Override
     public Pet getPetById(Long id) {
-        return pets.get(Math.toIntExact(id));
+        Optional<Pet> optionalPet = petRepository.findById(id);
+        return optionalPet.get(); // TODO
     }
 }
