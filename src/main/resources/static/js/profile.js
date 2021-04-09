@@ -17,6 +17,16 @@ $(document).ready(function () {
         }
     });
 
+    $.ajax({
+        url: "/pets",
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            buildTableOfPets(data);
+        }
+    });
+
     function getDataForm() {
         return {
             name: $("#inputNameOfPet").val(),
@@ -36,17 +46,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log('Submission was successful.');
                 console.log(data);
-                $(`#tableOfPets`).empty();
-
-                for (let i = 0; i < data.length; i++) {
-                    $('#tableOfPets').append(
-                        '        <tr>' +
-                        '            <th scope="row">' + (i + 1) + ' </th>' +
-                        '            <td><a href="' + '/pets/' + i + '">' + data[i].name + '</a></td>' +
-                        '            <td>' + data[i].kindId + '</td>' +
-                        '        </tr>'
-                    );
-                }
+                buildTableOfPets(data);
             },
             error: function (data) {
                 console.log('An error occurred.');
@@ -54,4 +54,18 @@ $(document).ready(function () {
             }
         });
     });
+
+    function buildTableOfPets(data) {
+        $(`#tableOfPets`).empty();
+
+        for (let i = 0; i < data.length; i++) {
+            $('#tableOfPets').append(
+                '        <tr>' +
+                '            <th scope="row">' + (i + 1) + ' </th>' +
+                '            <td><a href="' + '/pets/' + data[i].id + '">' + data[i].name + '</a></td>' +
+                '            <td>' + data[i].kindId + '</td>' +
+                '        </tr>'
+            );
+        }
+    }
 });
