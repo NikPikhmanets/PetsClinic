@@ -39,12 +39,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private UserDetailsImpl getUserDetails(User user, Collection<GrantedAuthority> grantList) {
-        return UserDetailsImpl.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .enabled(user.isEnabled())
-                .roles(grantList).build();
+        UserDetailsImpl userDetails = new UserDetailsImpl();
+        userDetails.setId(user.getId());
+        userDetails.setEmail(user.getEmail());
+        userDetails.setPassword(user.getPassword());
+        userDetails.setEnabled(user.isEnabled());
+        userDetails.setRoles(grantList);
+
+        return userDetails;
     }
 
     private Collection<GrantedAuthority> getGrantedAuthorities(User user) {
