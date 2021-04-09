@@ -20,4 +20,6 @@
 
     <include file="changes/kind-of-pet/create-table-kind-of-pet.xml" relativeToChangelogFile="true"/>
     <include file="changes/kind-of-pet/insert-names-kind-of-pet.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/pet/create-table-pet.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
