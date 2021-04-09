@@ -28,26 +28,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        User updateUser = updateUser(user);
-        userRepository.save(updateUser);
-    }
-
-    private User updateUser(User user) {
-        Role role = getRoleUser();
+        Role role = roleRepository.findByName(ROLE_USER);
         user.setRoles(Collections.singleton(role));
         user.setEnabled(true);
         user.setCreatedAt(LocalDateTime.now());
-
-        return user;
-    }
-
-    private Role getRoleUser() {
-        return roleRepository.findByName(ROLE_USER);
-    }
-
-    @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        userRepository.save(user);
     }
 
     @Override

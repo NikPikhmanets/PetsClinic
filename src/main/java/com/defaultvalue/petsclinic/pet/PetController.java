@@ -26,9 +26,7 @@ public class PetController {
     }
 
     @PostMapping
-    public List<Pet> addNewPet(Pet pet,
-                               @AuthenticationPrincipal UserDetailsImpl userDetails
-    ) {
+    public List<Pet> addNewPet(Pet pet, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         pet.setUserId((int) userDetails.getId());
         List<Pet> pets = petService.addPet(pet);
         System.out.println(pets);
