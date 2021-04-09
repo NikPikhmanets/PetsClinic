@@ -1,9 +1,8 @@
 package com.defaultvalue.petsclinic.user;
 
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
-import com.defaultvalue.petsclinic.user.converter.UserConverter;
 import com.defaultvalue.petsclinic.user.entity.User;
-import com.defaultvalue.petsclinic.user.model.UserDTO;
+import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,22 +18,18 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserConverter userConverter;
 
     @Autowired
-    public UserController(UserService userService, UserConverter userConverter) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userConverter = userConverter;
     }
 
     @GetMapping("/me")
-    public String me(@AuthenticationPrincipal UserDetailsImpl userDetails,
-                     Model model) {
+    public String me(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         if (userDetails == null) {
             return "/login";
         }
-        User user = userService.getUserById(userDetails.getId());
-        UserDTO userDTO = userConverter.toUserDto(user);
+        UserDTO userDTO = userService.getUserById(userDetails.getId());
         model.addAttribute("user", userDTO);
 
         return "profile";

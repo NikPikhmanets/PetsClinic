@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import com.defaultvalue.petsclinic.user.role.Role;
 import com.defaultvalue.petsclinic.user.role.RoleRepository;
 import com.defaultvalue.petsclinic.user.entity.User;
@@ -50,8 +51,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long id) {
-        return userRepository.findById(id);
+    public UserDTO getUserById(long id) {
+        User user = userRepository.findById(id);
+
+        return new UserDTO(user);
     }
 
     @Override

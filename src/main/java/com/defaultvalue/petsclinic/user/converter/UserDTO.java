@@ -1,23 +1,24 @@
-package com.defaultvalue.petsclinic.user.model;
+package com.defaultvalue.petsclinic.user.converter;
 
+
+import com.defaultvalue.petsclinic.user.entity.User;
 
 import java.time.LocalDate;
 
 public class UserDTO {
 
-    private Long id;
     private String name;
     private String surname;
     private String email;
     private String phoneNumber;
     private LocalDate birthday;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public UserDTO(User user) {
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.email = user.getEmail();
+        this.phoneNumber = user.getPhoneNumber();
+        this.birthday = user.getBirthday();
     }
 
     public String getName() {

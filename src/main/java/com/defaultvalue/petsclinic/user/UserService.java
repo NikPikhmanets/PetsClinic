@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    User getUserById(long id);
+    UserDTO getUserById(long id);
 
     List<User> getAllDoctors();
 }
