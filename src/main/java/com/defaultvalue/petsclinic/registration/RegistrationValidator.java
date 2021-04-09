@@ -10,10 +10,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import static com.defaultvalue.petsclinic.registration.ConstantsValidator.*;
-
 @Component
 public class RegistrationValidator implements Validator {
+
+    private static final String FIRST_NAME = "firstName";
+    private static final String SURNAME = "surname";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
+    private static final String PASSWORD_CONFIRM = "passwordConfirm";
 
     @Value("Size.userForm.noEmpty")
     private String noEmpty;

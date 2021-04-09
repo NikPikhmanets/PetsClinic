@@ -13,10 +13,10 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.defaultvalue.petsclinic.user.Constants.PREFIX_ROLE;
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    private static final String PREFIX_ROLE = "ROLE_";
 
     private final UserDetailsRepository userRepository;
 

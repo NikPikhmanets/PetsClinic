@@ -1,9 +1,9 @@
 package com.defaultvalue.petsclinic.user;
 
 import com.defaultvalue.petsclinic.user.converter.UserDTO;
+import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.Role;
 import com.defaultvalue.petsclinic.user.role.RoleRepository;
-import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.defaultvalue.petsclinic.user.Constants.ROLE_USER;
-
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final String ROLE_USER = "USER";
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
