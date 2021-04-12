@@ -1,6 +1,8 @@
 package com.defaultvalue.petsclinic.user.entity;
 
 import com.defaultvalue.petsclinic.user.role.Role;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,8 +21,11 @@ public class User {
     private String password;
     private String phoneNumber;
     private LocalDate birthday;
+    @Column(columnDefinition = "bit default 0")
     private boolean enabled;
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToMany(fetch = FetchType.LAZY)

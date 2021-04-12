@@ -7,7 +7,6 @@ import com.defaultvalue.petsclinic.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,8 +29,6 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         Role role = roleRepository.findByName(ROLE_USER);
         user.setRoles(Collections.singleton(role));
-        user.setEnabled(true);
-        user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
     }
 
