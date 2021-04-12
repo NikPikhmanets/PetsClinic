@@ -52,4 +52,26 @@ public class Pet {
     public void setKindOfPet(KindOfPet kindOfPet) {
         this.kindOfPet = kindOfPet;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pet pet = (Pet) o;
+
+        if (userId != pet.userId) return false;
+        if (!id.equals(pet.id)) return false;
+        if (!name.equals(pet.name)) return false;
+        return kindOfPet.equals(pet.kindOfPet);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (int) (userId ^ (userId >>> 32));
+        result = 31 * result + kindOfPet.hashCode();
+        return result;
+    }
 }

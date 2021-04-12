@@ -122,4 +122,40 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (enabled != user.enabled) return false;
+        if (!id.equals(user.id)) return false;
+        if (!name.equals(user.name)) return false;
+        if (!surname.equals(user.surname)) return false;
+        if (!email.equals(user.email)) return false;
+        if (!password.equals(user.password)) return false;
+        if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
+        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
+        if (!createdAt.equals(user.createdAt)) return false;
+        if (updatedAt != null ? !updatedAt.equals(user.updatedAt) : user.updatedAt != null) return false;
+        return roles.equals(user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        result = 31 * result + (enabled ? 1 : 0);
+        result = 31 * result + createdAt.hashCode();
+        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + roles.hashCode();
+        return result;
+    }
 }
