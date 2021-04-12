@@ -3,35 +3,49 @@ $(document).ready(function () {
         $('.collapse').toggleClass('show');
     });
 
-    $.ajax({
-        url: "/pets/kinds",
-        async: true,
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
+    getKindsForForm();
+    getPetsOfUser();
 
-            $('#petsFormControlSelect').empty();
-            $.each(data, function () {
-                $('#petsFormControlSelect').append('<option value="' + this.id + '">' + this.name + '</option>');
-            })
+    function getKindsForForm() {
+        $.ajax({
+            url: "/pets/kinds",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+
+                $('#petsFormControlSelect').empty();
+                $.each(data, function () {
+                    $('#petsFormControlSelect').append('<option value="' + this.id + '">' + this.name + '</option>');
+                })
+            }
+        });
+    }
+
+    function getPetsOfUser() {
+        $.ajax({
+            url: "/pets",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                buildTableOfPets(data);
+            }
+        });
+    }
+
+    function buildTableOfPets(data) {
+        $(`#tableOfPets`).empty();
+
+        for (let i = 0; i < data.length; i++) {
+            $('#tableOfPets').append(
+                '        <tr>' +
+                '            <th scope="row">' + (i + 1) + ' </th>' +
+                '            <td><a href="' + '/pets/' + data[i].id + '">' + data[i].name + '</a></td>' +
+                '            <td>' + data[i].kindOfPet.name + '</td>' +
+                '        </tr>'
+            );
         }
-    });
-
-    $.ajax({
-        url: "/pets",
-        async: true,
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
-            buildTableOfPets(data);
-        }
-    });
-
-    function getDataForm() {
-        return {
-            name: $("#inputNameOfPet").val(),
-            kindId: $("#petsFormControlSelect").val()
-        };
     }
 
     $("#addPetForm").submit(function (e) {
@@ -46,7 +60,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log('Submission was successful.');
                 console.log(data);
-                buildTableOfPets(data);
+                getPetsOfUser();
             },
             error: function (data) {
                 console.log('An error occurred.');
@@ -55,17 +69,10 @@ $(document).ready(function () {
         });
     });
 
-    function buildTableOfPets(data) {
-        $(`#tableOfPets`).empty();
-
-        for (let i = 0; i < data.length; i++) {
-            $('#tableOfPets').append(
-                '        <tr>' +
-                '            <th scope="row">' + (i + 1) + ' </th>' +
-                '            <td><a href="' + '/pets/' + data[i].id + '">' + data[i].name + '</a></td>' +
-                '            <td>' + data[i].kindId + '</td>' +
-                '        </tr>'
-            );
-        }
+    function getDataForm() {
+        return {
+            name: $("#inputNameOfPet").val(),
+            kindId: $("#petsFormControlSelect").val()
+        };
     }
 });
