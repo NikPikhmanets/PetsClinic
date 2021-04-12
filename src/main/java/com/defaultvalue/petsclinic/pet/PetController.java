@@ -1,18 +1,26 @@
 package com.defaultvalue.petsclinic.pet;
 
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
+import com.defaultvalue.petsclinic.pet.dto.PetFormDTO;
+import com.defaultvalue.petsclinic.pet.dto.PetInfoDTO;
 import com.defaultvalue.petsclinic.pet.entity.Pet;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPetRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Secured("ROLE_USER")
 @RequestMapping("/pets")
 public class PetController {
+
+    private final static int REQUEST_PAGE_SIZE = 10;
 
     private final PetService petService;
     private final PetRepository petRepository;
@@ -31,17 +39,19 @@ public class PetController {
     }
 
     @PostMapping
-    public List<Pet> addPet(Pet pet, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return petService.savePet(pet, userDetails.getId());
+    public void addPet(PetFormDTO petFormDTO) {
+        petService.savePet(petFormDTO.getName(), petFormDTO.getKindId());
     }
 
     @GetMapping("/{id}")
-    public Pet getPetById(@PathVariable Long id) {
-        return petService.getPetById(id);
+    public PetInfoDTO getPetById(@PathVariable Long id) throws NotFoundException {
+        Pet pet = petService.getPetById(id);
+        return new PetInfoDTO(pet);
     }
 
     @GetMapping
-    public List<Pet> getAllPetsByUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return petRepository.findAllByUserId(userDetails.getId());
+    public List<Pet> getAllPetsByUser(@RequestParam(required = false, defaultValue = "0") int page,
+                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return petRepository.findAllByUserId(userDetails.getId(), PageRequest.of(page, REQUEST_PAGE_SIZE));
     }
 }

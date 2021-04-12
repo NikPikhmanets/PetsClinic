@@ -1,10 +1,9 @@
 package com.defaultvalue.petsclinic.pet.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
+
+import javax.persistence.*;
 
 @Entity(name = "pets")
 public class Pet {
@@ -13,8 +12,14 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private long kindId;
     private long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "pets_kinds",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "kind_id"))
+    private KindOfPet kindOfPet;
 
     public Long getId() {
         return id;
@@ -32,19 +37,19 @@ public class Pet {
         this.name = name;
     }
 
-    public long getKindId() {
-        return kindId;
-    }
-
-    public void setKindId(long kindId) {
-        this.kindId = kindId;
-    }
-
     public long getUserId() {
         return userId;
     }
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public KindOfPet getKindOfPet() {
+        return kindOfPet;
+    }
+
+    public void setKindOfPet(KindOfPet kindOfPet) {
+        this.kindOfPet = kindOfPet;
     }
 }

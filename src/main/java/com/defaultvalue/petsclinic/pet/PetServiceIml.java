@@ -1,11 +1,13 @@
 package com.defaultvalue.petsclinic.pet;
 
+import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.pet.entity.Pet;
+import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PetServiceIml implements PetService {
@@ -18,16 +20,26 @@ public class PetServiceIml implements PetService {
     }
 
     @Override
-    public List<Pet> savePet(Pet pet, long userId) {
+    public void savePet(String nameOfPet, long kindId) {
+        long userId = getUserId();
+        Pet pet = new Pet();
+        pet.setName(nameOfPet);
         pet.setUserId(userId);
+        KindOfPet kindOfPet = new KindOfPet();
+        kindOfPet.setId(kindId);
+        pet.setKindOfPet(kindOfPet);
         petRepository.save(pet);
+    }
 
-        return petRepository.findAllByUserId(userId);
+    private long getUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        return userDetails.getId();
     }
 
     @Override
-    public Pet getPetById(Long id) {
-        Optional<Pet> optionalPet = petRepository.findById(id);
-        return optionalPet.get(); // TODO
+    public Pet getPetById(Long id) throws NotFoundException {
+        return petRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Pet with %d ID not fount", id)));
     }
 }
