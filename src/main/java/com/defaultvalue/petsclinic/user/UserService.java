@@ -8,7 +8,9 @@ import java.util.List;
 public interface UserService {
     void saveUser(User user);
 
-    UserDTO getUserById(long id);
+    UserDTO getUserDTO();
 
     List<User> getAllDoctors();
+
+    boolean isAuthentication();
 }

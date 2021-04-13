@@ -1,10 +1,8 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +23,11 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-        if (userDetails == null) {
-            return "/login";
+    public String profile(Model model) {
+        if (!userService.isAuthentication()) {
+            return "login";
         }
-        UserDTO userDTO = userService.getUserById(userDetails.getId());
+        UserDTO userDTO = userService.getUserDTO();
         model.addAttribute("user", userDTO);
 
         return "profile";

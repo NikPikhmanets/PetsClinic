@@ -1,10 +1,13 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.Role;
 import com.defaultvalue.petsclinic.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,10 +36,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(long id) {
-        User user = userRepository.findById(id);
+    public UserDTO getUserDTO() {
+        long userDetailsId = getUserDetailsId();
+        User user = userRepository.findById(userDetailsId);
 
         return new UserDTO(user);
+    }
+
+    private long getUserDetailsId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        return userDetails.getId();
     }
 
     @Override
@@ -57,5 +68,10 @@ public class UserServiceImpl implements UserService {
             list.add(user);
         }
         return list;
+    }
+
+    @Override
+    public boolean isAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
     }
 }
