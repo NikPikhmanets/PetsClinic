@@ -1,21 +1,30 @@
 package com.defaultvalue.petsclinic.registration;
 
+import com.defaultvalue.petsclinic.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
 
-    private final RegistrationValidator registrationValidator;
+    @Value("Duplicate.userForm.email")
+    private String duplicateEmail;
+
+    @Value("Diff.userForm.passwordConfirm")
+    private String diffPassword;
+
+    private final UserService userService;
 
     @Autowired
-    public RegistrationController(RegistrationValidator registrationValidator) {
-        this.registrationValidator = registrationValidator;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/registration")
@@ -26,13 +35,19 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("registrationForm") RegistrationForm form,
+    public String registration(@Valid RegistrationForm registrationForm,
                                BindingResult bindingResult) {
-        registrationValidator.validate(form, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        return "redirect:/info";
+        if (userService.isExistUser(registrationForm.getEmail())) {
+            bindingResult.rejectValue("email", duplicateEmail);
+            return "registration";
+        }
+        if (!registrationForm.isPasswordsEquals()) {
+            bindingResult.rejectValue("passwordConfirm", diffPassword);
+            return "registration";
+        }
+        return "redirect:/login";
     }
 }

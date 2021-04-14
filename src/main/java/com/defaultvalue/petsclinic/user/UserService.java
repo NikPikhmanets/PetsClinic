@@ -11,4 +11,6 @@ public interface UserService {
     UserDTO getUserDTO();
 
     List<User> getAllDoctors();
+
+    boolean isExistUser(String email);
 }

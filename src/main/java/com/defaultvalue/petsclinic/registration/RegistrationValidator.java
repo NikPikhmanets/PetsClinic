@@ -2,15 +2,12 @@ package com.defaultvalue.petsclinic.registration;
 
 import com.defaultvalue.petsclinic.user.UserRepository;
 import com.defaultvalue.petsclinic.user.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-@Component
 public class RegistrationValidator implements Validator {
 
     private static final String FIRST_NAME = "firstName";
@@ -36,7 +33,6 @@ public class RegistrationValidator implements Validator {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public RegistrationValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

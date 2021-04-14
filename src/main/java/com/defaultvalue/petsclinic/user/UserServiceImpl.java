@@ -58,6 +58,12 @@ public class UserServiceImpl implements UserService {
         return buildTestUsers();
     }
 
+    @Override
+    public boolean isExistUser(String email) {
+        User user = userRepository.findByEmail(email);
+        return user != null;
+    }
+
     private List<User> buildTestUsers() {
         List<User> list = new ArrayList<>();
 

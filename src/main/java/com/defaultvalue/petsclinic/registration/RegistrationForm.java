@@ -1,16 +1,32 @@
 package com.defaultvalue.petsclinic.registration;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 
 public class RegistrationForm {
 
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String surname;
+
+    @NotEmpty
+    @Email
     private String email;
     private String phoneNumber;
     private LocalDate birthday;
+
+    @NotNull
+    @Size(min = 2, max = 16)
+
     private String password;
+    @NotNull
+    @Size(min = 2, max = 16)
     private String passwordConfirm;
 
     public String getFirstName() {
@@ -67,5 +83,9 @@ public class RegistrationForm {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public boolean isPasswordsEquals() {
+        return password.equals(passwordConfirm);
     }
 }
