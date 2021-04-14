@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -39,7 +40,8 @@ class UserServiceImplTest {
 
         userRepository = mock(UserRepository.class);
         RoleRepository roleRepository = mock(RoleRepository.class);
-        userService = new UserServiceImpl(userRepository, roleRepository);
+        BCryptPasswordEncoder bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
+        userService = new UserServiceImpl(userRepository, roleRepository, bCryptPasswordEncoder);
     }
 
     @Test

@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "users")
@@ -21,7 +22,6 @@ public class User {
     private String password;
     private String phoneNumber;
     private LocalDate birthday;
-    @Column(columnDefinition = "bit default 0")
     private boolean enabled;
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -136,10 +136,10 @@ public class User {
         if (!surname.equals(user.surname)) return false;
         if (!email.equals(user.email)) return false;
         if (!password.equals(user.password)) return false;
-        if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
-        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
+        if (!Objects.equals(phoneNumber, user.phoneNumber)) return false;
+        if (!Objects.equals(birthday, user.birthday)) return false;
         if (!createdAt.equals(user.createdAt)) return false;
-        if (updatedAt != null ? !updatedAt.equals(user.updatedAt) : user.updatedAt != null) return false;
+        if (!Objects.equals(updatedAt, user.updatedAt)) return false;
         return roles.equals(user.roles);
     }
 
