@@ -24,9 +24,6 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        if (!userService.isAuthentication()) {
-            return "login";
-        }
         UserDTO userDTO = userService.getUserDTO();
         model.addAttribute("user", userDTO);
 

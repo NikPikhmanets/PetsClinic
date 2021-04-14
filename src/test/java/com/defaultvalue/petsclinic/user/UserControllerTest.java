@@ -55,17 +55,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void shouldReturnLoginPageIfNoAuthentication() throws Exception {
-        given(userService.isAuthentication()).willReturn(false);
-
-        mockMvc.perform(get("/users/profile"))
-                .andExpect(view().name("login"));
-    }
-
-    @Test
     public void shouldReturnProfilePageIfNoAuthentication() throws Exception {
-        given(userService.isAuthentication()).willReturn(true);
-
         User user = new User();
         user.setName("name");
         user.setSurname("surname");

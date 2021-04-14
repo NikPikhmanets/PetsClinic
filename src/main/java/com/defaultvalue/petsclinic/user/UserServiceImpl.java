@@ -69,9 +69,4 @@ public class UserServiceImpl implements UserService {
         }
         return list;
     }
-
-    @Override
-    public boolean isAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
-    }
 }
