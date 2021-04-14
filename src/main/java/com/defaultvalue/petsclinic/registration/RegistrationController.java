@@ -48,6 +48,8 @@ public class RegistrationController {
             bindingResult.rejectValue("passwordConfirm", diffPassword);
             return "registration";
         }
+        userService.saveUser(registrationForm);
+
         return "redirect:/login";
     }
 }

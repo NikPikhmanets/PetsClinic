@@ -2,6 +2,7 @@ package com.defaultvalue.petsclinic.user;
 
 import com.defaultvalue.petsclinic.exceptions.handler.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
+import com.defaultvalue.petsclinic.registration.RegistrationForm;
 import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.Role;
@@ -9,6 +10,7 @@ import com.defaultvalue.petsclinic.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,15 +25,25 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(RegistrationForm form) {
+        User user = new User();
+        user.setName(form.getFirstName());
+        user.setSurname(form.getSurname());
+        user.setEmail(form.getEmail());
+        user.setBirthday(form.getBirthday());
+        user.setPassword(bCryptPasswordEncoder.encode(form.getPassword()));
+        user.setEnabled(true);
+
         Role role = roleRepository.findByName(ROLE_USER);
         user.setRoles(Collections.singleton(role));
         userRepository.save(user);
