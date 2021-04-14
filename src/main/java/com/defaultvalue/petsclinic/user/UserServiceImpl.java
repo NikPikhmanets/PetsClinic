@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.exceptions.handler.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,7 +40,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserDTO() {
         long userDetailsId = getUserDetailsId();
-        User user = userRepository.findById(userDetailsId);
+        Optional<User> optionalUser = userRepository.findById((int) userDetailsId);
+        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User not found"));
 
         return new UserDTO(user);
     }
