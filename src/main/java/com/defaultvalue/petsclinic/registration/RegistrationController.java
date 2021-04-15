@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.registration;
 
+import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
 import com.defaultvalue.petsclinic.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,16 +41,18 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if (userService.isExistUser(registrationForm.getEmail())) {
-            bindingResult.rejectValue("email", duplicateEmail);
-            return "registration";
-        }
-        if (!registrationForm.isPasswordsEquals()) {
+        if (!registrationForm.isPasswordMatch()) {
             bindingResult.rejectValue("passwordConfirm", diffPassword);
             return "registration";
         }
-        userService.saveUser(registrationForm);
 
+        try {
+            userService.saveUser(registrationForm);
+        } catch (UserAlreadyExistException e) {
+            e.printStackTrace();
+            bindingResult.rejectValue("email", duplicateEmail);
+            return "registration";
+        }
         return "redirect:/login";
     }
 }

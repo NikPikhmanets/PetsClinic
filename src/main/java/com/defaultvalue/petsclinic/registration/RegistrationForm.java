@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-
 public class RegistrationForm {
 
     @NotEmpty
@@ -85,7 +84,7 @@ public class RegistrationForm {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public boolean isPasswordsEquals() {
+    public boolean isPasswordMatch() {
         return password.equals(passwordConfirm);
     }
 }

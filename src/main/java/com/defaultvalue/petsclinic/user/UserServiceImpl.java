@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
 import com.defaultvalue.petsclinic.exceptions.handler.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.registration.RegistrationForm;
@@ -35,24 +36,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(RegistrationForm form) {
+    public User saveUser(RegistrationForm form) throws UserAlreadyExistException {
+        if (userRepository.findByEmail(form.getEmail()) != null) {
+            throw new UserAlreadyExistException("There is an account with that email address: " + form.getEmail());
+        }
+        String cryptPassword = bCryptPasswordEncoder.encode(form.getPassword());
+        Role role = roleRepository.findByName(ROLE_USER);
+
         User user = new User();
         user.setName(form.getFirstName());
         user.setSurname(form.getSurname());
         user.setEmail(form.getEmail());
+        user.setPhoneNumber(form.getPhoneNumber());
         user.setBirthday(form.getBirthday());
-        user.setPassword(bCryptPasswordEncoder.encode(form.getPassword()));
+        user.setPassword(cryptPassword);
+        user.setRoles(Collections.singleton(role));
         user.setEnabled(true);
 
-        Role role = roleRepository.findByName(ROLE_USER);
-        user.setRoles(Collections.singleton(role));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public UserDTO getUserDTO() {
         long userDetailsId = getUserDetailsId();
-        Optional<User> optionalUser = userRepository.findById((int) userDetailsId);
+        Optional<User> optionalUser = userRepository.findById(userDetailsId);
         User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User not found"));
 
         return new UserDTO(user);
@@ -68,12 +75,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllDoctors() {
         return buildTestUsers();
-    }
-
-    @Override
-    public boolean isExistUser(String email) {
-        User user = userRepository.findByEmail(email);
-        return user != null;
     }
 
     private List<User> buildTestUsers() {
