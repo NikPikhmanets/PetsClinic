@@ -1,6 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.user.converter.UserDTO;
+import com.defaultvalue.petsclinic.user.converter.ImmutableUserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +63,14 @@ class UserControllerTest {
         user.setPhoneNumber("phone");
         user.setBirthday(testDate);
 
-        UserDTO userDTO = new UserDTO(user);
+        ImmutableUserDTO userDTO = ImmutableUserDTO.builder()
+                .name(user.getName())
+                .surname(user.getSurname())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .birthday(user.getBirthday())
+                .build();
+
         assertEquals("name", userDTO.getName());
         assertEquals("surname", userDTO.getSurname());
         assertEquals("email", userDTO.getEmail());

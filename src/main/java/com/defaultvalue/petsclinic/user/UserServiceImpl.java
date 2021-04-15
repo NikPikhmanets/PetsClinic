@@ -4,6 +4,7 @@ import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
 import com.defaultvalue.petsclinic.exceptions.handler.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.registration.RegistrationForm;
+import com.defaultvalue.petsclinic.user.converter.ImmutableUserDTO;
 import com.defaultvalue.petsclinic.user.converter.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.Role;
@@ -62,7 +63,13 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findById(userDetailsId);
         User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        return new UserDTO(user);
+        return ImmutableUserDTO.builder()
+                .name(user.getName())
+                .surname(user.getSurname())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .birthday(user.getBirthday())
+                .build();
     }
 
     private long getUserDetailsId() {
