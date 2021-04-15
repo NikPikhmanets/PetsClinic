@@ -1,6 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.user.converter.ImmutableUserDTO;
+import com.defaultvalue.petsclinic.user.dto.ImmutableUserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

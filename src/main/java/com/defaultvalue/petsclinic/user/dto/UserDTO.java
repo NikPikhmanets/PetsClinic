@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic.user.converter;
+package com.defaultvalue.petsclinic.user.dto;
 
 
 import org.immutables.value.Value;

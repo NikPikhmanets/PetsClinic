@@ -1,7 +1,7 @@
 package com.defaultvalue.petsclinic.user;
 
 import com.defaultvalue.petsclinic.user.entity.User;
-import com.defaultvalue.petsclinic.user.converter.UserDTO;
+import com.defaultvalue.petsclinic.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
