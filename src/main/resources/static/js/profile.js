@@ -43,10 +43,25 @@ $(document).ready(function () {
                 '            <th scope="row">' + (i + 1) + ' </th>' +
                 '            <td><a href="' + '/pets/' + data[i].id + '">' + data[i].name + '</a></td>' +
                 '            <td>' + data[i].kindOfPet.name + '</td>' +
+                '            <td class="delete-pet"><a href="/pets/'  + data[i].id + '">delete</a></td>' +
                 '        </tr>'
             );
         }
     }
+
+    $("#tableOfPets").on('click', 'a', function (e) {
+        e.preventDefault();
+        let url = $(this).attr('href');
+
+        $.ajax({
+            url: url,
+            type: 'delete',
+            success: function (data) {
+                console.log(data);
+                getPetsOfUser();
+            }
+        });
+    });
 
     $("#addPetForm").submit(function (e) {
         e.preventDefault();
