@@ -54,4 +54,9 @@ public class PetController {
                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return petRepository.findAllByUserId(userDetails.getId(), PageRequest.of(page, REQUEST_PAGE_SIZE));
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        petRepository.deleteById(id);
+    }
 }
