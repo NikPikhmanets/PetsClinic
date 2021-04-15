@@ -1,6 +1,7 @@
 package com.defaultvalue.petsclinic.pet;
 
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
+import com.defaultvalue.petsclinic.pet.dto.ImmutablePetInfoDTO;
 import com.defaultvalue.petsclinic.pet.dto.PetFormDTO;
 import com.defaultvalue.petsclinic.pet.dto.PetInfoDTO;
 import com.defaultvalue.petsclinic.pet.entity.Pet;
@@ -46,7 +47,12 @@ public class PetController {
     @GetMapping("/{id}")
     public PetInfoDTO getPetById(@PathVariable Long id) throws NotFoundException {
         Pet pet = petService.getPetById(id);
-        return new PetInfoDTO(pet);
+
+        return ImmutablePetInfoDTO.builder()
+                .name(pet.getName())
+                .kind(pet.getKindOfPet().getName())
+                .build();
+//        return new PetInfoDTO(pet);
     }
 
     @GetMapping
