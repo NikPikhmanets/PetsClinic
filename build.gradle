@@ -26,6 +26,9 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     runtimeOnly "mysql:mysql-connector-java:${mySqlConnectorVersion}"
 
+    annotationProcessor('org.immutables:value:2.8.2')
+    implementation 'org.immutables:value:2.8.2'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
