@@ -22,13 +22,30 @@ import static org.mockito.Mockito.when;
 
 class UserServiceImplTest {
 
-    private int userId;
+    private long userId;
+    private final String name = "name";
+    private final String surname = "surname";
+    private final String email = "email";
+    private final String phone = "phone";
+    private final String password = "password";
+    private final LocalDate localDate = LocalDate.of(2020, 11, 1);
+
+    private User user;
+
     private UserRepository userRepository;
     private UserService userService;
 
     @BeforeEach
     public void init() {
         userId = 2;
+
+        user = new User();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setPhoneNumber(phone);
+        user.setBirthday(localDate);
+        user.setPassword(password);
 
         UserDetailsImpl userDetails = new UserDetailsImpl();
         userDetails.setId(userId);
@@ -46,20 +63,7 @@ class UserServiceImplTest {
 
     @Test
     public void getUserDTO_shouldReturnUserDTO() {
-        int id = 2;
-        String name = "name";
-        String surname = "surname";
-        String email = "email";
-        String phone = "phone";
-        LocalDate localDate = LocalDate.of(2020, 11, 1);
-
-        User user = new User();
-        user.setName(name);
-        user.setSurname(surname);
-        user.setEmail(email);
-        user.setPhoneNumber(phone);
-        user.setBirthday(localDate);
-
+        long id = 2;
         given(userRepository.findById(id)).willReturn(Optional.of(user));
         UserDTO userDTO = userService.getUserDTO();
         assertEquals(name, userDTO.getName());
