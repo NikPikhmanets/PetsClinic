@@ -12,15 +12,9 @@
         <h5 class="mb-5">Make an appointment with a doctor</h5>
 
         <form class="w-50 m-auto text-left" id="recordsForm" th:action="@{/issues}">
-            <div class="form-group">
-                <label for="doctorsFormControlSelect">Doctors</label>
-                <select class="form-control" name="doctorId" id="doctorsFormControlSelect">
-                    <option></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="petsFormControlSelect">Kind of pet</label>
-                <select class="form-control" name="kindOfPetId" id="petsFormControlSelect">
+            <div class="form-group" id="petGroup">
+                <label for="petsFormControlSelect">Your pets</label>
+                <select class="form-control" name="pets" id="petsFormControlSelect">
                     <option></option>
                 </select>
             </div>

@@ -1,49 +1,23 @@
-function updateSelectInForm(element, data) {
-    $(element).empty();
-    $.each(data, function () {
-        $(element).append('<option value="' + this.id + '">' + this.name + '</option>')
-    })
-}
-
-function getDoctors() {
-    function updateSlider(data) {
-        let wrapper = '.slider-wrapper';
-        $(wrapper).children().remove();
-
-        for (const item of data) {
-            $(wrapper).append(
-                '<div class="about-item text-center"> ' +
-                '     <img src="https://nationwide-energy.co.uk/wp-content/uploads/2017/07/blank-avatar.jpg"' +
-                '          alt="void">' +
-                '         <p class="about-name">' + item.name + '</p>' +
-                '         <p class="about-speciality">' + item.email + '</p>' +
-                ' </div>'
-            );
-        }
-    }
-
+function getPetOfUser() {
     $.ajax({
-        url: "users/doctors",
-        async: true,
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
-            updateSelectInForm('#doctorsFormControlSelect', data);
-            updateSlider(data);
-        }
-    });
-}
-
-function getKindsOfPet() {
-    $.ajax({
-        url: "pets/kinds",
+        url: "pets",
         async: true,
         dataType: 'json',
         success: function (data) {
             console.log(data);
             updateSelectInForm('#petsFormControlSelect', data);
+        },
+        error: function (data) {
+            $("#petGroup").hide();
         }
     });
+}
+
+function updateSelectInForm(element, data) {
+    $(element).empty();
+    $.each(data, function () {
+        $(element).append('<option value="' + this.id + '">' + this.name + '</option>')
+    })
 }
 
 function submitForm() {
@@ -53,9 +27,7 @@ function submitForm() {
 
     function getDataForm() {
         return {
-            id: null,
-            doctorId: $("#doctorsFormControlSelect").val(),
-            kindOfPetId: $("#petsFormControlSelect").val(),
+            petId: $("#petsFormControlSelect").val(),
             description: $("#description").val().toString(),
         };
     }
@@ -100,7 +72,6 @@ function submitForm() {
 }
 
 $(document).ready(function () {
-    getDoctors();
-    getKindsOfPet();
+    getPetOfUser();
     submitForm();
 });
