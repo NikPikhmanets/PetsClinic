@@ -1,0 +1,15 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="add-foreign-key-constraint-to-pet-id" author="nik pikhmanets">
+        <comment>addForeignKeyConstraint for petId column of the issue table</comment>
+        <addForeignKeyConstraint baseColumnNames="pet_id"
+                                 baseTableName="issues"
+                                 constraintName="fk_ip_pet"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pets"/>
+    </changeSet>
+</databaseChangeLog>
