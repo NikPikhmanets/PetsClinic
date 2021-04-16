@@ -1,15 +1,13 @@
 package com.defaultvalue.petsclinic.pet;
 
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
-import com.defaultvalue.petsclinic.pet.dto.ImmutablePetInfoDTO;
-import com.defaultvalue.petsclinic.pet.dto.PetFormDTO;
 import com.defaultvalue.petsclinic.pet.dto.PetInfoDTO;
-import com.defaultvalue.petsclinic.pet.entity.Pet;
+import com.defaultvalue.petsclinic.pet.dto.PetFormDTO;
+import com.defaultvalue.petsclinic.pet.dto.PetShortInfoDTO;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPetRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -46,19 +44,12 @@ public class PetController {
 
     @GetMapping("/{id}")
     public PetInfoDTO getPetById(@PathVariable Long id) throws NotFoundException {
-        Pet pet = petService.getPetById(id);
-
-        return ImmutablePetInfoDTO.builder()
-                .name(pet.getName())
-                .kind(pet.getKindOfPet().getName())
-                .build();
-//        return new PetInfoDTO(pet);
+        return petService.getPetById(id);
     }
 
     @GetMapping
-    public List<Pet> getAllPetsByUser(@RequestParam(required = false, defaultValue = "0") int page,
-                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return petRepository.findAllByUserId(userDetails.getId(), PageRequest.of(page, REQUEST_PAGE_SIZE));
+    public List<PetShortInfoDTO> getPetsByUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return petService.getPetsByUser(userDetails.getId());
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,7 @@
 package com.defaultvalue.petsclinic.pet.dto;
 
 public class PetFormDTO {
+
     private String name;
     private long kindId;
 
