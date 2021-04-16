@@ -1,11 +1,17 @@
 package com.defaultvalue.petsclinic.pet.entity;
 
 
+import com.defaultvalue.petsclinic.issue.entity.Issue;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
 
 import javax.persistence.*;
+import java.util.List;
+
 
 @Entity(name = "pets")
+@NamedEntityGraph(name = "Pet.issues",
+        attributeNodes = @NamedAttributeNode("issues")
+)
 public class Pet {
 
     @Id
@@ -20,6 +26,13 @@ public class Pet {
             joinColumns = @JoinColumn(name = "pet_id"),
             inverseJoinColumns = @JoinColumn(name = "kind_id"))
     private KindOfPet kindOfPet;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "issues",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
+    private List<Issue> issues;
 
     public Long getId() {
         return id;
@@ -51,6 +64,10 @@ public class Pet {
 
     public void setKindOfPet(KindOfPet kindOfPet) {
         this.kindOfPet = kindOfPet;
+    }
+
+    public List<Issue> getIssues() {
+        return issues;
     }
 
     @Override

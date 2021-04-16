@@ -13,6 +13,7 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
+    @Column(name = "pet_id")
     private long petId;
 
     @Enumerated(EnumType.STRING)
