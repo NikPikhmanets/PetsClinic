@@ -27,4 +27,6 @@
     <include file="changes/pet/drop-column-kind-id.xml" relativeToChangelogFile="true" />
 
     <include file="changes/pet-kind/create-table-pet-kind.xml" relativeToChangelogFile="true" />
+    <include file="changes/issue/create-table-issue.xml" relativeToChangelogFile="true" />
+    <include file="changes/issue/create-table-visit.xml" relativeToChangelogFile="true" />
 </databaseChangeLog>
