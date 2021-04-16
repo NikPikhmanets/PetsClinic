@@ -1,5 +1,7 @@
 package com.defaultvalue.petsclinic.issue;
 
+import com.defaultvalue.petsclinic.issue.dto.IssueDTO;
+import com.defaultvalue.petsclinic.issue.entity.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +13,18 @@ import java.util.List;
 @RequestMapping("/issues")
 public class IssueController {
 
+    private final IssueService issueService;
     private final IssueRepository issueRepository;
 
     @Autowired
-    public IssueController(IssueRepository issueRepository) {
+    public IssueController(IssueService issueService, IssueRepository issueRepository) {
+        this.issueService = issueService;
         this.issueRepository = issueRepository;
     }
 
     @PostMapping
-    public void newIssue(Issue issue) {
-        issueRepository.save(issue);
+    public void newIssue(IssueDTO issueDTO) {
+        issueService.save(issueDTO);
     }
 
     @GetMapping("/{id}")
@@ -49,5 +53,10 @@ public class IssueController {
     @PutMapping
     public void updateIssue(Issue issue) {
         issueRepository.save(issue);
+    }
+
+    @GetMapping
+    public List<Issue> getIssues() {
+        return issueRepository.findAll();
     }
 }
