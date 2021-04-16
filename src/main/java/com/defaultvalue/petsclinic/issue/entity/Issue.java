@@ -2,8 +2,10 @@ package com.defaultvalue.petsclinic.issue.entity;
 
 
 import com.defaultvalue.petsclinic.issue.StatusIssue;
+import com.defaultvalue.petsclinic.issue.visit.Visit;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "issues")
@@ -18,6 +20,13 @@ public class Issue {
 
     @Enumerated(EnumType.STRING)
     private StatusIssue statusIssue = StatusIssue.NEW;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "visits",
+            joinColumns = @JoinColumn(name = "issue_id"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
+    private List<Visit> visits;
 
     public Long getId() {
         return id;
@@ -49,6 +58,10 @@ public class Issue {
 
     public void setPetId(long petId) {
         this.petId = petId;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
     }
 
     @Override

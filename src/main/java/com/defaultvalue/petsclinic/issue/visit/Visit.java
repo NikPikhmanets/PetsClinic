@@ -1,10 +1,11 @@
 package com.defaultvalue.petsclinic.issue.visit;
 
-import com.defaultvalue.petsclinic.issue.Issue;
+import com.defaultvalue.petsclinic.issue.entity.Issue;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "visits")
 public class Visit {
@@ -16,9 +17,8 @@ public class Visit {
     @CreationTimestamp
     private LocalDateTime dateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id", insertable = false, updatable = false)
-    private Issue issue;
+    @Column(name = "issue_id")
+    private long issueId;
 
     public Long getId() {
         return id;
@@ -44,11 +44,11 @@ public class Visit {
         this.dateTime = dateTime;
     }
 
-    public Issue getIssue() {
-        return issue;
+    public long getIssueId() {
+        return issueId;
     }
 
-    public void setIssue(Issue issue) {
-        this.issue = issue;
+    public void setIssueId(long issueId) {
+        this.issueId = issueId;
     }
 }
