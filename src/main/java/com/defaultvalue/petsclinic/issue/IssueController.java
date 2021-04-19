@@ -32,10 +32,10 @@ public class IssueController {
         return new Issue();
     }
 
-    @GetMapping("/new")
+    @GetMapping("/{status}")
     @Secured("ROLE_DOCTOR")
-    public List<IssueDTO> getAllNewIssues() {
-        List<Issue> issues = issueRepository.findAllByStatusIssue(StatusIssue.NEW);
+    public List<IssueDTO> getAllIssuesByStatus(@PathVariable StatusIssue status) {
+        List<Issue> issues = issueRepository.findAllByStatusIssue(status);
 
         return new IssueDTO().getListIssueDTO(issues);
     }
@@ -53,11 +53,13 @@ public class IssueController {
     }
 
     @PutMapping
+    @Secured("ROLE_DOCTOR")
     public void updateIssue(Issue issue) {
         issueRepository.save(issue);
     }
 
     @GetMapping
+    @Secured("ROLE_DOCTOR")
     public List<Issue> getIssues() {
         return issueRepository.findAll();
     }
