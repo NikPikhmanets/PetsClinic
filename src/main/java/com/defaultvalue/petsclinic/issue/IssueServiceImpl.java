@@ -5,6 +5,8 @@ import com.defaultvalue.petsclinic.issue.entity.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class IssueServiceImpl implements IssueService {
 
@@ -21,5 +23,10 @@ public class IssueServiceImpl implements IssueService {
         issue.setDescription(issueDTO.getDescription());
         issue.setPetId(issueDTO.getPetId());
         issueRepository.save(issue);
+    }
+
+    @Override
+    public Issue findById(Long id) {
+        return issueRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found"));
     }
 }

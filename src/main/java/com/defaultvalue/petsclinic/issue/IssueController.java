@@ -27,9 +27,9 @@ public class IssueController {
         issueService.save(issueDTO);
     }
 
-    @GetMapping("/{id}")
-    public Issue getIssueById(@PathVariable String id) {
-        return new Issue();
+    @GetMapping("/id")
+    public Issue getIssueById(Long id) {
+        return issueService.findById(id);
     }
 
     @GetMapping("/{status}")
