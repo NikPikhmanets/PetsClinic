@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
+
+import static com.defaultvalue.petsclinic.issue.IssueController.*;
 
 @RestController
 @RequestMapping("/issues")
+@Secured(ROLE_DOCTOR)
 public class IssueController {
+
+    public static final String ROLE_DOCTOR = "ROLE_DOCTOR";
 
     private final IssueService issueService;
     private final IssueRepository issueRepository;
@@ -23,43 +27,41 @@ public class IssueController {
     }
 
     @PostMapping
+    @Secured("ROLE_USER")
     public void newIssue(IssueDTO issueDTO) {
         issueService.save(issueDTO);
     }
 
-    @GetMapping("/id")
-    public Issue getIssueById(Long id) {
+    @GetMapping("/{id}")
+    public Issue getIssueById(@PathVariable Long id) {
         return issueService.findById(id);
     }
 
-    @GetMapping("/{status}")
-    @Secured("ROLE_DOCTOR")
+    @GetMapping("/status/{status}")
     public List<IssueDTO> getAllIssuesByStatus(@PathVariable StatusIssue status) {
         List<Issue> issues = issueRepository.findAllByStatusIssue(status);
 
         return new IssueDTO().getListIssueDTO(issues);
     }
 
-    @GetMapping("/assigned-to-me")
-    @Secured("ROLE_DOCTOR")
-    public List<Issue> getAIssuesByDoctor() {
-        return Collections.emptyList();
+    @GetMapping("/assigned/{status}")
+    public List<IssueDTO> getAIssuesByDoctor(@PathVariable StatusIssue status) {
+        List<Issue> issues = issueService.findAllByDoctorWithStatus(status);
+
+        return new IssueDTO().getListIssueDTO(issues);
     }
 
-    @GetMapping("/{petId}")
-    @Secured("ROLE_DOCTOR")
-    public List<Issue> getIssuesByPetID(@PathVariable String petId) {
-        return Collections.emptyList();
+    @GetMapping("/pets/{petId}")
+    public List<Issue> getIssuesByPetID(@PathVariable Long petId) {
+        return issueRepository.findAllByPetId(petId);
     }
 
     @PutMapping
-    @Secured("ROLE_DOCTOR")
     public void updateIssue(Issue issue) {
         issueRepository.save(issue);
     }
 
     @GetMapping
-    @Secured("ROLE_DOCTOR")
     public List<Issue> getIssues() {
         return issueRepository.findAll();
     }
