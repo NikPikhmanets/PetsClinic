@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic.exceptions.handler;
+package com.defaultvalue.petsclinic.exceptions;
 
 import java.util.NoSuchElementException;
 

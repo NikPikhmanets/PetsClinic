@@ -1,7 +1,7 @@
 package com.defaultvalue.petsclinic.user;
 
 import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
-import com.defaultvalue.petsclinic.exceptions.handler.UserNotFoundException;
+import com.defaultvalue.petsclinic.exceptions.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.registration.RegistrationForm;
 import com.defaultvalue.petsclinic.user.dto.ImmutableUserDTO;

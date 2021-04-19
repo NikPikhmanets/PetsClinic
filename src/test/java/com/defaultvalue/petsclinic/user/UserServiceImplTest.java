@@ -1,6 +1,6 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.exceptions.handler.UserNotFoundException;
+import com.defaultvalue.petsclinic.exceptions.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.user.dto.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
