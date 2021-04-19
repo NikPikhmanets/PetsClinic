@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping("/pets")
 public class PetController {
 
-    private final static int REQUEST_PAGE_SIZE = 10;
-
     private final PetService petService;
     private final PetRepository petRepository;
     private final KindOfPetRepository kindOfPetRepository;
