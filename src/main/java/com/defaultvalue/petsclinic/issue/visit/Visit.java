@@ -1,11 +1,9 @@
 package com.defaultvalue.petsclinic.issue.visit;
 
-import com.defaultvalue.petsclinic.issue.entity.Issue;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity(name = "visits")
 public class Visit {

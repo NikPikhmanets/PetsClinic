@@ -18,6 +18,9 @@ public class Issue {
     @Column(name = "pet_id")
     private long petId;
 
+    @Column(name = "doctor_id")
+    private Long doctorId;
+
     @Enumerated(EnumType.STRING)
     private StatusIssue statusIssue = StatusIssue.NEW;
 
@@ -56,6 +59,18 @@ public class Issue {
         return petId;
     }
 
+    public long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(long doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
+
     public void setPetId(long petId) {
         this.petId = petId;
     }
@@ -72,9 +87,11 @@ public class Issue {
         Issue issue = (Issue) o;
 
         if (petId != issue.petId) return false;
+        if (!doctorId.equals(issue.doctorId)) return false;
         if (!Objects.equals(id, issue.id)) return false;
         if (!description.equals(issue.description)) return false;
-        return statusIssue == issue.statusIssue;
+        if (statusIssue != issue.statusIssue) return false;
+        return Objects.equals(visits, issue.visits);
     }
 
     @Override
@@ -82,7 +99,9 @@ public class Issue {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + description.hashCode();
         result = 31 * result + (int) (petId ^ (petId >>> 32));
+        result = 31 * result + (int) (doctorId ^ (doctorId >>> 32));
         result = 31 * result + statusIssue.hashCode();
+        result = 31 * result + (visits != null ? visits.hashCode() : 0);
         return result;
     }
 }
