@@ -34,8 +34,10 @@ public class IssueController {
 
     @GetMapping("/new")
     @Secured("ROLE_DOCTOR")
-    public List<Issue> getAllNewIssues() {
-        return Collections.emptyList();
+    public List<IssueDTO> getAllNewIssues() {
+        List<Issue> issues = issueRepository.findAllByStatusIssue(StatusIssue.NEW);
+
+        return new IssueDTO().getListIssueDTO(issues);
     }
 
     @GetMapping("/assigned-to-me")
