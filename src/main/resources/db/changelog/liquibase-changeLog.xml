@@ -28,10 +28,13 @@
 
     <include file="changes/pet-kind/create-table-pet-kind.xml" relativeToChangelogFile="true"/>
     <include file="changes/issue/create-table-issue.xml" relativeToChangelogFile="true"/>
-    <include file="changes/issue/create-table-visit.xml" relativeToChangelogFile="true"/>
 
     <include file="changes/issue/modify-data-type-of-status-issue-to-string.xml" relativeToChangelogFile="true"/>
 
     <include file="changes/issue/add-column-pet-id.xml" relativeToChangelogFile="true"/>
     <include file="changes/issue/add-foreign-key-constraint-to-pet-id.xml" relativeToChangelogFile="true"/>
+    <include file="changes/issue/add-column-doctor-id.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/visit/create-table-visit.xml" relativeToChangelogFile="true"/>
+    <include file="changes/visit/add-column-issue-id.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
