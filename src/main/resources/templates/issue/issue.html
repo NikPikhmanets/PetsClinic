@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page of Issue</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<th:block th:include="/navbar/navbar">nav</th:block>
+<div class="container bg-light p-5 h-100">
+    <div id="issue-id" th:th:value='${issueId}'></div>
+
+    <h3>Page of Issue</h3>
+    <h5 class="text-primary mt-5" id="petInfo"></h5>
+
+    <div class="card-body mt-5">
+        <form class="w-50 text-left" id="addComment">
+            <div class="form-group">
+                <label for="inputRecord">Record about Issue</label>
+                <input type="text" class="form-control" id="inputRecord" placeholder="Enter comment">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
+    <p class="mt-5">Visits</p>
+    <table class="table mt-1">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Comments</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tbody id="visits-table">
+        </tbody>
+    </table>
+</div>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/issue/issue.js}"></script>
+</body>
+</html>
