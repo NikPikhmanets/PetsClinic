@@ -4,6 +4,10 @@ import com.defaultvalue.petsclinic.issue.dto.IssueDTO;
 import com.defaultvalue.petsclinic.issue.entity.Issue;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -37,6 +41,13 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public List<Issue> findAllByDoctorWithStatus(StatusIssue status) {
         return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), status);
+    }
+
+    @Override
+    public Page<Issue> findAllNewIssue(int page) {
+        Pageable requestedPage = PageRequest.of(page, 10, Sort.by("id").descending());
+
+        return issueRepository.findAllByStatusIssueAndDoctorIdIsNull(StatusIssue.NEW, requestedPage);
     }
 
     private long getUserDetailsId() {

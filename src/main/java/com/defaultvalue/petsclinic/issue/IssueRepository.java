@@ -1,6 +1,8 @@
 package com.defaultvalue.petsclinic.issue;
 
 import com.defaultvalue.petsclinic.issue.entity.Issue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +19,6 @@ public interface IssueRepository extends JpaRepository<Issue, Long> {
     List<Issue> findAllByPetId(Long id);
 
     List<Issue> findAllByDoctorIdAndStatusIssue(long doctorId, StatusIssue statusIssue);
+
+    Page<Issue> findAllByStatusIssueAndDoctorIdIsNull(StatusIssue statusIssue, Pageable pageable);
 }

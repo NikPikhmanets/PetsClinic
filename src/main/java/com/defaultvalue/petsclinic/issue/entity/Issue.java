@@ -3,6 +3,7 @@ package com.defaultvalue.petsclinic.issue.entity;
 
 import com.defaultvalue.petsclinic.issue.StatusIssue;
 import com.defaultvalue.petsclinic.issue.visit.Visit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Issue {
     @Column(name = "pet_id")
     private long petId;
 
+    @JsonIgnore
     @Column(name = "doctor_id")
     private Long doctorId;
 

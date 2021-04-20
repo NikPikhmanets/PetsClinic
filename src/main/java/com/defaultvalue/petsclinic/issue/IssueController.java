@@ -3,14 +3,17 @@ package com.defaultvalue.petsclinic.issue;
 import com.defaultvalue.petsclinic.issue.dto.IssueDTO;
 import com.defaultvalue.petsclinic.issue.entity.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.defaultvalue.petsclinic.issue.IssueController.*;
+import static com.defaultvalue.petsclinic.issue.IssueController.ROLE_DOCTOR;
 
-@RestController
+@Controller
 @RequestMapping("/issues")
 @Secured(ROLE_DOCTOR)
 public class IssueController {
@@ -61,8 +64,15 @@ public class IssueController {
         issueRepository.save(issue);
     }
 
+    @GetMapping("/new-list")
+    @ResponseBody
+    public Page<Issue> getAllNewIssues(@RequestParam(name = "page", defaultValue = "0") int page) {
+        return issueService.findAllNewIssue(page);
+    }
+
     @GetMapping
-    public List<Issue> getIssues() {
-        return issueRepository.findAll();
+    public String getView(Model model) {
+        model.addAttribute("status", StatusIssue.values());
+        return "/issue/list-issues";
     }
 }
