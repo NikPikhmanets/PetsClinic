@@ -2,6 +2,8 @@ package com.defaultvalue.petsclinic.issue;
 
 import com.defaultvalue.petsclinic.issue.dto.IssueDTO;
 import com.defaultvalue.petsclinic.issue.entity.Issue;
+import com.defaultvalue.petsclinic.issue.visit.Visit;
+import com.defaultvalue.petsclinic.issue.visit.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
@@ -22,11 +24,13 @@ public class IssueController {
 
     private final IssueService issueService;
     private final IssueRepository issueRepository;
+    private final VisitRepository visitRepository;
 
     @Autowired
-    public IssueController(IssueService issueService, IssueRepository issueRepository) {
+    public IssueController(IssueService issueService, IssueRepository issueRepository, VisitRepository visitRepository) {
         this.issueService = issueService;
         this.issueRepository = issueRepository;
+        this.visitRepository = visitRepository;
     }
 
     @PostMapping
@@ -83,5 +87,22 @@ public class IssueController {
         model.addAttribute("status", StatusIssue.values());
 
         return "issue/list-issues";
+    }
+
+    @PostMapping("/{id}/visits")
+    @ResponseBody
+    public Visit addVisitByIssueId(@PathVariable Long id, String comment) {
+        Visit visit = new Visit();
+        visit.setCommentOfDoctor(comment);
+        visit.setIssueId(id);
+
+        return visitRepository.save(visit);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseBody
+    public Issue updateIssue(@PathVariable Long id) {
+
+        return null;
     }
 }
