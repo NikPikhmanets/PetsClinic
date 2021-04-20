@@ -2,7 +2,7 @@ $(document).ready(function () {
     function fetchInfoAboutPet(petId) {
         $.ajax({
             type: "GET",
-            url: "/pets/" + petId,
+            url: `/pets/${petId}`,
             success: function (pet) {
                 console.log(pet);
                 $('#petInfo').text(`Pet: ${pet.name} (${pet.kind})`);
@@ -43,6 +43,49 @@ $(document).ready(function () {
             }
         });
     }
+
+    $("#addComment").submit(function (e) {
+        e.preventDefault();
+        let id = $('#issue-id').attr('value');
+
+        $.ajax({
+            type: "post",
+            url: `/issues/${id}/visits`,
+            data: {
+                comment: $('#inputRecord').val()
+            },
+            success: function (data) {
+                console.log('Submission was successful.');
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            }
+        });
+    });
+
+    $("#closeIssue").submit(function (e) {
+        e.preventDefault();
+        let id = $('#issue-id').attr('value');
+
+        $.ajax({
+            type: "post",
+            url: `/issues/${id}`,
+            data: {
+                status: "close"
+            },
+            success: function (data) {
+                console.log('Submission was successful.');
+                console.log(data);
+                fetchIssue();
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            }
+        });
+    });
 
     (function () {
         fetchIssue();
