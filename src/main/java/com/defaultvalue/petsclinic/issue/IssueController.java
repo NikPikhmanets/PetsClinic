@@ -36,6 +36,14 @@ public class IssueController {
     }
 
     @GetMapping("/{id}")
+    public String getViewIssue(Model model, @PathVariable Long id) {
+        model.addAttribute("issueId", id);
+
+        return "issue/issue";
+    }
+
+    @GetMapping("/info/{id}")
+    @ResponseBody
     public Issue getIssueById(@PathVariable Long id) {
         return issueService.findById(id);
     }
@@ -73,6 +81,7 @@ public class IssueController {
     @GetMapping
     public String getView(Model model) {
         model.addAttribute("status", StatusIssue.values());
-        return "/issue/list-issues";
+
+        return "issue/list-issues";
     }
 }
