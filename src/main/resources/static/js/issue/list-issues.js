@@ -17,7 +17,7 @@ $(document).ready(function () {
 
                     $('#issue-table').append(
                         '<tr>' +
-                        '   <th scope="row"><a href="/issues/' + item.id + '">' + (response.pageable.offset + i + 1) + ' </a></th>' +
+                        '   <th scope="row"><a href="/issues/' + item.petId + '">' + (response.pageable.offset + i + 1) + ' </a></th>' +
                         '   <td>' + item.description + '</td>' +
                         '    <td><a class="btn btn-primary" href="/pets/' + item.petId + '">pet</a></td>' +
                         '</tr>'
