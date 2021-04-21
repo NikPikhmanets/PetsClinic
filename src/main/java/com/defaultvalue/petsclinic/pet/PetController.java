@@ -1,7 +1,6 @@
 package com.defaultvalue.petsclinic.pet;
 
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
-import com.defaultvalue.petsclinic.pet.dto.PetInfoDTO;
 import com.defaultvalue.petsclinic.pet.dto.PetFormDTO;
 import com.defaultvalue.petsclinic.pet.dto.PetShortInfoDTO;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
@@ -10,11 +9,13 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @Secured("ROLE_USER")
 @RequestMapping("/pets")
 public class PetController {
@@ -31,6 +32,7 @@ public class PetController {
     }
 
     @GetMapping("/kinds")
+    @ResponseBody
     public List<KindOfPet> getKindOfPetList() {
         return kindOfPetRepository.findAll();
     }
@@ -41,11 +43,15 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
-    public PetInfoDTO getPetById(@PathVariable Long id) throws NotFoundException {
-        return petService.getPetById(id);
+    public String getPetById(Model model, @PathVariable Long id) throws NotFoundException {
+        PetShortInfoDTO pet = petService.getPetById(id);
+        model.addAttribute("pet", pet);
+
+        return "pet";
     }
 
     @GetMapping
+    @ResponseBody
     public List<PetShortInfoDTO> getPetsByUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return petService.getPetsByUser(userDetails.getId());
     }

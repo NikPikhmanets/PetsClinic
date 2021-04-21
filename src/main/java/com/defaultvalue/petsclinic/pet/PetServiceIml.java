@@ -1,9 +1,7 @@
 package com.defaultvalue.petsclinic.pet;
 
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
-import com.defaultvalue.petsclinic.pet.dto.ImmutablePetInfoDTO;
 import com.defaultvalue.petsclinic.pet.dto.ImmutablePetShortInfoDTO;
-import com.defaultvalue.petsclinic.pet.dto.PetInfoDTO;
 import com.defaultvalue.petsclinic.pet.dto.PetShortInfoDTO;
 import com.defaultvalue.petsclinic.pet.entity.Pet;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
@@ -47,14 +45,13 @@ public class PetServiceIml implements PetService {
     }
 
     @Override
-    public PetInfoDTO getPetById(Long id) throws NotFoundException {
+    public PetShortInfoDTO getPetById(Long id) throws NotFoundException {
         Pet pet = petRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Pet with %d ID not fount", id)));
 
-        return ImmutablePetInfoDTO.builder()
+        return ImmutablePetShortInfoDTO.builder()
                 .id(pet.getId())
                 .name(pet.getName())
                 .kind(pet.getKindOfPet().getName())
-                .addAllIssues(pet.getIssues())
                 .build();
     }
 
