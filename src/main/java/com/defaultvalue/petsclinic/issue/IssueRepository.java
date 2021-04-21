@@ -16,7 +16,7 @@ public interface IssueRepository extends JpaRepository<Issue, Long> {
 
     List<Issue> findAllByStatusIssue(StatusIssue statusIssue);
 
-    List<Issue> findAllByDoctorIdAndStatusIssue(long doctorId, StatusIssue statusIssue);
+    Page<Issue> findAllByDoctorIdAndStatusIssue(long doctorId, StatusIssue statusIssue, Pageable pageable);
 
     Page<Issue> findAllByStatusIssueAndDoctorIdIsNull(StatusIssue statusIssue, Pageable pageable);
 

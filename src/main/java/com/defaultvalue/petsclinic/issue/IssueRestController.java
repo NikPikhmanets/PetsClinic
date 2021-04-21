@@ -50,15 +50,15 @@ public class IssueRestController {
 
     @GetMapping("/assigned/{status}")
     @ResponseBody
-    public List<IssueDTO> getAIssuesForCurrentUser(@PathVariable StatusIssue status) {
-        List<Issue> issues = issueService.findAllByDoctorWithStatus(status);
-
-        return new IssueDTO().getListIssueDTO(issues);
+    public Page<Issue> getAIssuesForCurrentUser(@PathVariable StatusIssue status,
+                                                @RequestParam(name = "page", defaultValue = "0") int page) {
+        return issueService.findAllByDoctorWithStatus(page, status);
     }
 
     @GetMapping("/pets/{petId}")
     @ResponseBody
-    public Page<Issue> getIssuesByPetId(@PathVariable Long petId, @RequestParam(name = "page", defaultValue = "0") int page) {
+    public Page<Issue> getIssuesByPetId(@PathVariable Long petId,
+                                        @RequestParam(name = "page", defaultValue = "0") int page) {
         return issueService.findAllByPetId(petId, page);
     }
 

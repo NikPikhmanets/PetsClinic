@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -41,8 +40,10 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public List<Issue> findAllByDoctorWithStatus(StatusIssue status) {
-        return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), status);
+    public Page<Issue> findAllByDoctorWithStatus(int page, StatusIssue status) {
+        Pageable requestedPage = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
+
+        return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), status, requestedPage);
     }
 
     @Override
