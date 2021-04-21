@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor profile</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<th:block th:include="/navbar/navbar">nav</th:block>
+<div class="container bg-light p-5 h-100">
+    <div class="form-group mt-5">
+        <label for="selected_status_form"> Select status:</label>
+        <select class="form-control" id="selected_status_form">
+            <option>All</option>
+            <option th:each="status : ${T(com.defaultvalue.petsclinic.issue.StatusIssue).values()}"
+                    th:value="${status}" th:text="${status.getValue}"></option>
+        </select>
+    </div>
+
+    <table class="table mt-5">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Description</th>
+            <th scope="col">Pet</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tbody id="issue-table">
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="mt-5">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-ite"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/works.js}"></script>
+</body>
+</html>
