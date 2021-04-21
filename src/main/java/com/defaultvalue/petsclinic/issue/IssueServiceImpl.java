@@ -18,6 +18,8 @@ import java.util.NoSuchElementException;
 @Service
 public class IssueServiceImpl implements IssueService {
 
+    private static final int SIZE_PAGE = 10;
+
     private final IssueRepository issueRepository;
 
     @Autowired
@@ -45,9 +47,16 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public Page<Issue> findAllNewIssue(int page) {
-        Pageable requestedPage = PageRequest.of(page, 10, Sort.by("id").descending());
+        Pageable requestedPage = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
 
         return issueRepository.findAllByStatusIssueAndDoctorIdIsNull(StatusIssue.NEW, requestedPage);
+    }
+
+    @Override
+    public Page<Issue> findAllByPetId(Long petId, int page) {
+        Pageable requestedPage = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
+
+        return issueRepository.findAllByPetId(petId, requestedPage);
     }
 
     private long getUserDetailsId() {

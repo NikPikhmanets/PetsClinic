@@ -67,8 +67,10 @@ public class IssueController {
     }
 
     @GetMapping("/pets/{petId}")
-    public List<Issue> getIssuesByPetID(@PathVariable Long petId) {
-        return issueRepository.findAllByPetId(petId);
+    @ResponseBody
+    public Page<Issue> getIssuesByPetID(@PathVariable Long petId, @RequestParam(name = "page", defaultValue = "0") int page) {
+        Page<Issue> issuePage = issueService.findAllByPetId(petId, page);
+        return issuePage;
     }
 
     @PutMapping
@@ -103,6 +105,6 @@ public class IssueController {
     @ResponseBody
     public Issue updateIssue(@PathVariable Long id) {
 
-        return null;
+        return null; // TODO
     }
 }

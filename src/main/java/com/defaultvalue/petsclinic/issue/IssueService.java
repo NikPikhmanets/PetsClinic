@@ -14,4 +14,6 @@ public interface IssueService {
     List<Issue> findAllByDoctorWithStatus(StatusIssue status);
 
     Page<Issue> findAllNewIssue(int page);
+
+    Page<Issue> findAllByPetId(Long petId, int page);
 }
