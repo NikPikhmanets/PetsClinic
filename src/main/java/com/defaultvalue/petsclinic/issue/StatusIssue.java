@@ -1,9 +1,9 @@
 package com.defaultvalue.petsclinic.issue;
 
 public enum StatusIssue {
-    NEW("new"),
-    IN_PROGRESS("In progress"),
-    CLOSED("closed");
+    NEW("NEW"),
+    IN_PROGRESS("IN PROGRESS"),
+    CLOSED("CLOSED");
 
     private final String status;
 
