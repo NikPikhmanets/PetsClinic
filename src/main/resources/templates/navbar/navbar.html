@@ -20,6 +20,9 @@
             <li class="nav-item active" sec:authorize="hasRole('DOCTOR')">
                 <a class="nav-link" href="/issues">Issues</a>
             </li>
+            <li class="nav-item active" sec:authorize="hasRole('DOCTOR')">
+                <a class="nav-link" href="/works">Works</a>
+            </li>
         </ul>
         <div class="nav-item active" sec:authorize="isAnonymous()">
             <a class="nav-link" href="/login">Sign In</a>
