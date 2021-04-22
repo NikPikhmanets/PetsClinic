@@ -9,9 +9,8 @@
 <th:block th:include="/navbar/navbar">nav</th:block>
 <div class="container bg-light p-5 h-100">
     <div class="form-group mt-5">
-        <label for="selected_status_form"> Select status:</label>
-        <select class="form-control" id="selected_status_form">
-            <option>All</option>
+        <label for="selected-status"> Select status:</label>
+        <select class="form-control" id="selected-status">
             <option th:each="status : ${T(com.defaultvalue.petsclinic.issue.StatusIssue).values()}"
                     th:value="${status}" th:text="${status.getValue}"></option>
         </select>
@@ -39,6 +38,7 @@
     </nav>
 </div>
 <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/pagination/pagination.js}"></script>
 <script th:src="@{/js/works.js}"></script>
 </body>
 </html>

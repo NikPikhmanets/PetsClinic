@@ -1,10 +1,14 @@
 $(document).ready(function () {
+    const FIRST_PAGE = 0;
+
     function fetchIssues(page) {
-        let pageNumber = (typeof page !== 'undefined') ? page : 0;
+        let pageNumber = (typeof page !== 'undefined') ? page : FIRST_PAGE;
+        let selectStatus = $('#selected-status').val();
+        console.log(selectStatus);
 
         $.ajax({
             type: "GET",
-            url: "/issues/assigned/NEW",
+            url: `/issues/assigned/${selectStatus}`,
             data: {
                 page: pageNumber
             },
@@ -23,11 +27,7 @@ $(document).ready(function () {
                         '</tr>'
                     );
                 }
-
-                if ($('ul.pagination li').length - 2 !== response.totalPages) {
-                    $('ul.pagination').empty();
-                    buildPagination(response);
-                }
+                $('ul.pagination').buildPagination(response);
             },
             error: function (e) {
                 console.log("ERROR: ", e);
@@ -35,29 +35,7 @@ $(document).ready(function () {
         });
     }
 
-    function buildPagination(response) {
-        let totalPages = response.totalPages;
-
-        let pagination = "ul.pagination";
-
-        let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
-        $(pagination).append(pageIndex);
-
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === 1) {
-                pageIndex = "<li class='page-item active'><a class='page-link'>" + i + "</a></li>"
-            } else {
-                pageIndex = "<li class='page-item'><a class='page-link'>" + i + "</a></li>"
-            }
-            $("ul.pagination").append(pageIndex);
-        }
-
-        pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
-        $(pagination).append(pageIndex);
-    }
-
     $(document).on("click", "ul.pagination li a", function () {
-        let desc = false;
         let active = "li.active";
 
         let val = $(this).text();
@@ -88,7 +66,11 @@ $(document).ready(function () {
         }
     });
 
+    $(`#selected-status`).change(function () {
+        fetchIssues(FIRST_PAGE);
+    });
+
     (function () {
-        fetchIssues(0);
+        fetchIssues(FIRST_PAGE);
     })();
 });
