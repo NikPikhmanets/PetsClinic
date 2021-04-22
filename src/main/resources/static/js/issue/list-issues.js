@@ -19,7 +19,8 @@ $(document).ready(function () {
                         '<tr>' +
                         '   <th scope="row"><a href="/issues/' + item.id + '">' + (response.pageable.offset + i + 1) + ' </a></th>' +
                         '   <td>' + item.description + '</td>' +
-                        '    <td><a class="btn btn-primary" href="/pets/' + item.petId + '">pet</a></td>' +
+                        '    <td><a class="btn btn-secondary" href="/pets/' + item.petId + '">Profile of pet</a></td>' +
+                        '    <td><button class="btn btn-secondary assign" value="' + item.id + '">Assign to myself</button></td>' +
                         '</tr>'
                     );
                 }
@@ -59,6 +60,25 @@ $(document).ready(function () {
             $(active).removeClass("active");
             $(this).parent().addClass("active");
         }
+    });
+
+    $(`#issue-table`).on('click', '.assign', function (e) {
+        e.preventDefault();
+        let issueId = $(this).attr('value');
+
+        $.ajax({
+            url: `/issues/${issueId}/assign`,
+            type: 'PUT',
+            success: function (data) {
+                console.log(data.status);
+                alert("Success assign");
+                fetchIssues();
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+                alert("Error assign");
+            }
+        });
     });
 
     (function () {
