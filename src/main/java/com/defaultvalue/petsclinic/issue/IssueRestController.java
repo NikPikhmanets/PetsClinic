@@ -36,7 +36,6 @@ public class IssueRestController {
     }
 
     @GetMapping("/info/{id}")
-    @ResponseBody
     public Issue getIssueById(@PathVariable Long id) {
         return issueService.findById(id);
     }
@@ -49,14 +48,12 @@ public class IssueRestController {
     }
 
     @GetMapping("/assigned/{status}")
-    @ResponseBody
     public Page<Issue> getAIssuesForCurrentUser(@PathVariable StatusIssue status,
                                                 @RequestParam(name = "page", defaultValue = "0") int page) {
         return issueService.findAllByDoctorWithStatus(page, status);
     }
 
     @GetMapping("/pets/{petId}")
-    @ResponseBody
     public Page<Issue> getIssuesByPetId(@PathVariable Long petId,
                                         @RequestParam(name = "page", defaultValue = "0") int page) {
         return issueService.findAllByPetId(petId, page);
@@ -68,13 +65,11 @@ public class IssueRestController {
     }
 
     @GetMapping("/new-list")
-    @ResponseBody
     public Page<Issue> getAllNewIssues(@RequestParam(name = "page", defaultValue = "0") int page) {
         return issueService.findAllNewIssue(page);
     }
 
     @PostMapping("/{id}/visits")
-    @ResponseBody
     public Visit addVisitByIssueId(@PathVariable Long id, String comment) {
         Visit visit = new Visit();
         visit.setCommentOfDoctor(comment);
@@ -84,7 +79,6 @@ public class IssueRestController {
     }
 
     @PutMapping("/{id}")
-    @ResponseBody
     public Issue updateIssue(@PathVariable Long id) {
 
         return null; // TODO
