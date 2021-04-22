@@ -65,7 +65,6 @@ public class IssueServiceImpl implements IssueService {
         Issue issue = issueRepository.findByIdAndDoctorIdIsNull(id)
                 .orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found or Doctor assigned already"));
         issue.setDoctorId(getUserDetailsId());
-        issue.setStatusIssue(StatusIssue.IN_PROGRESS);
         issueRepository.save(issue);
     }
 
