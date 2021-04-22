@@ -6,6 +6,7 @@ import com.defaultvalue.petsclinic.issue.visit.Visit;
 import com.defaultvalue.petsclinic.issue.visit.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,14 +74,14 @@ public class IssueRestController {
         return visitRepository.save(visit);
     }
 
-    @PutMapping("/{id}")
-    public Issue updateIssue(@PathVariable Long id) {
-
-        return null; // TODO
+    @PutMapping("/{id}/assign")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateIssue(@PathVariable Long id) {
+        issueService.assignIssue(id);
     }
 
-    @PutMapping
-    public void updateIssue(Issue issue) {
-        issueRepository.save(issue);
+    @PutMapping("/{id}/status/{status}")
+    public void updateIssue(@PathVariable String id, @PathVariable String status) {
+//        issueRepository.save(issue);
     }
 }

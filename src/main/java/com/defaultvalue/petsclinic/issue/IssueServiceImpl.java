@@ -60,6 +60,15 @@ public class IssueServiceImpl implements IssueService {
         return issueRepository.findAllByPetId(petId, requestedPage);
     }
 
+    @Override
+    public void assignIssue(Long id) {
+        Issue issue = issueRepository.findByIdAndDoctorIdIsNull(id)
+                .orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found or Doctor assigned already"));
+        issue.setDoctorId(getUserDetailsId());
+        issue.setStatusIssue(StatusIssue.IN_PROGRESS);
+        issueRepository.save(issue);
+    }
+
     private long getUserDetailsId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();

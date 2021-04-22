@@ -14,4 +14,6 @@ public interface IssueService {
     Page<Issue> findAllNewIssue(int page);
 
     Page<Issue> findAllByPetId(Long petId, int page);
+
+    void assignIssue(Long id);
 }
