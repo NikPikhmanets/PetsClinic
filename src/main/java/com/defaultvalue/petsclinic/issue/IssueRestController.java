@@ -59,11 +59,6 @@ public class IssueRestController {
         return issueService.findAllByPetId(petId, page);
     }
 
-    @PutMapping
-    public void updateIssue(Issue issue) {
-        issueRepository.save(issue);
-    }
-
     @GetMapping("/new-list")
     public Page<Issue> getAllNewIssues(@RequestParam(name = "page", defaultValue = "0") int page) {
         return issueService.findAllNewIssue(page);
@@ -82,5 +77,10 @@ public class IssueRestController {
     public Issue updateIssue(@PathVariable Long id) {
 
         return null; // TODO
+    }
+
+    @PutMapping
+    public void updateIssue(Issue issue) {
+        issueRepository.save(issue);
     }
 }
