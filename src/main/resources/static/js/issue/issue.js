@@ -18,7 +18,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/issues/info/" + id,
+            url: `/issues/info/${id}`,
             success: function (response) {
                 console.log(response)
                 fetchInfoAboutPet(response.petId);
