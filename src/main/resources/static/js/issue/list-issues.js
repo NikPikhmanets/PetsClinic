@@ -23,11 +23,7 @@ $(document).ready(function () {
                         '</tr>'
                     );
                 }
-
-                if ($('ul.pagination li').length - 2 !== response.totalPages) {
-                    $('ul.pagination').empty();
-                    buildPagination(response);
-                }
+                $('ul.pagination').buildPagination(response);
             },
             error: function (e) {
                 console.log("ERROR: ", e);
@@ -35,31 +31,8 @@ $(document).ready(function () {
         });
     }
 
-    function buildPagination(response) {
-        let totalPages = response.totalPages;
-
-        let pagination = "ul.pagination";
-
-        let pageIndex = '<li class="page-item"><a class="page-link">Previous</a></li>';
-        $(pagination).append(pageIndex);
-
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === 1) {
-                pageIndex = "<li class='page-item active'><a class='page-link'>" + i + "</a></li>"
-            } else {
-                pageIndex = "<li class='page-item'><a class='page-link'>" + i + "</a></li>"
-            }
-            $("ul.pagination").append(pageIndex);
-        }
-
-        pageIndex = '<li class="page-item"><a class="page-link">Next</a></li>';
-        $(pagination).append(pageIndex);
-    }
-
     $(document).on("click", "ul.pagination li a", function () {
-        let desc = false;
         let active = "li.active";
-
         let val = $(this).text();
 
         if (val.toUpperCase() === "NEXT") {
@@ -83,7 +56,7 @@ $(document).ready(function () {
             }
         } else {
             fetchIssues(parseInt(val) - 1);
-            $("li.active").removeClass("active");
+            $(active).removeClass("active");
             $(this).parent().addClass("active");
         }
     });
