@@ -68,6 +68,20 @@ $(document).ready(function () {
         });
     }
 
+    function getDoctors() {
+        $.ajax({
+            url: "/users/doctors",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+            }
+        });
+    }
+
     getPetOfUser();
+    getDoctors();
     submitForm();
 });
