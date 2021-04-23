@@ -6,6 +6,8 @@ import com.defaultvalue.petsclinic.issue.visit.Visit;
 import com.defaultvalue.petsclinic.issue.visit.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static com.defaultvalue.petsclinic.issue.IssueController.ROLE_DOCTOR;
+import static com.defaultvalue.petsclinic.issue.IssueServiceImpl.SIZE_PAGE;
 
 @RestController
 @RequestMapping("/issues")
@@ -59,12 +62,12 @@ public class IssueRestController {
     @GetMapping("/pets/{petId}")
     public Page<Issue> getIssuesByPetId(@PathVariable Long petId,
                                         @RequestParam(name = "page", defaultValue = "0") int page) {
-        return issueService.findAllByPetId(petId, page);
+        return issueRepository.findAllByPetId(petId, PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
     }
 
     @GetMapping("/new-list")
     public Page<Issue> getAllNewIssues(@RequestParam(name = "page", defaultValue = "0") int page) {
-        return issueService.findAllNewIssue(page);
+        return issueRepository.findAllByStatusIssueAndDoctorIdIsNull(StatusIssue.NEW, PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
     }
 
     @PostMapping("/{id}/visits")

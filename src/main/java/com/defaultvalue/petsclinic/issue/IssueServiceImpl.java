@@ -6,7 +6,6 @@ import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +16,7 @@ import java.util.NoSuchElementException;
 @Service
 public class IssueServiceImpl implements IssueService {
 
-    private static final int SIZE_PAGE = 10;
+    public static final int SIZE_PAGE = 10;
 
     private final IssueRepository issueRepository;
 
@@ -36,24 +35,12 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public Page<Issue> findAllByDoctorWithStatus(int page, String status) {
+        PageRequest pageRequest = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
+
         if (status.equalsIgnoreCase("ALL")) {
-            return issueRepository.findAllByDoctorId(getUserDetailsId(), PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
+            return issueRepository.findAllByDoctorId(getUserDetailsId(), pageRequest);
         }
-        return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), StatusIssue.valueOf(status), PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
-    }
-
-    @Override
-    public Page<Issue> findAllNewIssue(int page) {
-        Pageable requestedPage = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
-
-        return issueRepository.findAllByStatusIssueAndDoctorIdIsNull(StatusIssue.NEW, requestedPage);
-    }
-
-    @Override
-    public Page<Issue> findAllByPetId(Long petId, int page) {
-        Pageable requestedPage = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
-
-        return issueRepository.findAllByPetId(petId, requestedPage);
+        return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), StatusIssue.valueOf(status), pageRequest);
     }
 
     @Override
