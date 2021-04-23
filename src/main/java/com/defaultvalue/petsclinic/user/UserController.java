@@ -1,7 +1,8 @@
 package com.defaultvalue.petsclinic.user;
 
-import com.defaultvalue.petsclinic.user.entity.User;
+import com.defaultvalue.petsclinic.user.dto.DoctorDTO;
 import com.defaultvalue.petsclinic.user.dto.UserDTO;
+import com.defaultvalue.petsclinic.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/profile")
@@ -32,7 +35,7 @@ public class UserController {
 
     @GetMapping("/doctors")
     @ResponseBody
-    public List<User> doctors() {
-        return userService.getAllDoctors();
+    public List<DoctorDTO> doctors() {
+        return new DoctorDTO().getListDoctorDTO(userRepository.findAll());
     }
 }
