@@ -9,11 +9,13 @@ public interface IssueService {
 
     Issue findById(Long id);
 
-    Page<Issue> findAllByDoctorWithStatus(int page, StatusIssue status);
+    Page<Issue> findAllByDoctorWithStatus(int page, String status);
 
     Page<Issue> findAllNewIssue(int page);
 
     Page<Issue> findAllByPetId(Long petId, int page);
 
     void assignIssue(Long id);
+
+    void updateIssueStatus(Long id, StatusIssue status);
 }

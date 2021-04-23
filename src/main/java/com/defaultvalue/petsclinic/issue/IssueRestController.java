@@ -32,6 +32,7 @@ public class IssueRestController {
 
     @PostMapping
     @Secured("ROLE_USER")
+    @ResponseStatus(HttpStatus.OK)
     public void addIssue(IssueDTO issueDTO) {
         issueService.save(issueDTO);
     }
@@ -48,9 +49,9 @@ public class IssueRestController {
         return new IssueDTO().getListIssueDTO(issues);
     }
 
-    @GetMapping("/assigned/{status}")
-    public Page<Issue> getAIssuesForCurrentUser(@PathVariable StatusIssue status,
-                                                @RequestParam(name = "page", defaultValue = "0") int page) {
+    @GetMapping("/assigned")
+    public Page<Issue> getAIssuesForCurrentUser(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                @RequestParam String status) {
         return issueService.findAllByDoctorWithStatus(page, status);
     }
 
@@ -80,8 +81,9 @@ public class IssueRestController {
         issueService.assignIssue(id);
     }
 
-    @PutMapping("/{id}/status/{status}")
-    public void updateIssue(@PathVariable String id, @PathVariable String status) {
-//        issueRepository.save(issue);
+    @PutMapping("/{id}/status")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateIssue(@PathVariable Long id, @RequestBody StatusIssue status) {
+        issueService.updateIssueStatus(id, status);
     }
 }

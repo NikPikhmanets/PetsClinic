@@ -40,10 +40,11 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Page<Issue> findAllByDoctorWithStatus(int page, StatusIssue status) {
-        Pageable requestedPage = PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending());
-
-        return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), status, requestedPage);
+    public Page<Issue> findAllByDoctorWithStatus(int page, String status) {
+        if (status.equalsIgnoreCase("ALL")) {
+            return issueRepository.findAllByDoctorId(getUserDetailsId(), PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
+        }
+        return issueRepository.findAllByDoctorIdAndStatusIssue(getUserDetailsId(), StatusIssue.valueOf(status), PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
     }
 
     @Override
@@ -65,6 +66,13 @@ public class IssueServiceImpl implements IssueService {
         Issue issue = issueRepository.findByIdAndDoctorIdIsNull(id)
                 .orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found or Doctor assigned already"));
         issue.setDoctorId(getUserDetailsId());
+        issueRepository.save(issue);
+    }
+
+    @Override
+    public void updateIssueStatus(Long id, StatusIssue status) {
+        Issue issue = issueRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found"));
+        issue.setStatusIssue(status);
         issueRepository.save(issue);
     }
 
