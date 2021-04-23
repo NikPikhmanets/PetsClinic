@@ -8,13 +8,24 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: `/issues/assigned/${selectStatus}`,
+            url: `/issues/assigned`,
             data: {
-                page: pageNumber
+                page: pageNumber,
+                status: selectStatus
             },
             success: function (response) {
                 console.log(response)
                 $(`#issue-table`).empty();
+
+                function isShowButtonByStatus(item) {
+                    if (item.statusIssue === 'NEW') {
+                        return '<td><button class="btn btn-info update-status-in-progress" value="' + item.id + '">In Progress</button></td>';
+                    }
+                    if (item.statusIssue === 'IN_PROGRESS') {
+                        return '<td><button class="btn btn-danger update-status-close" value="' + item.id + '">Close</button></td>';
+                    }
+                    return '<td>Closed</td>';
+                }
 
                 for (let i = 0; i < response.content.length; i++) {
                     let item = response.content[i];
@@ -22,15 +33,45 @@ $(document).ready(function () {
                     $('#issue-table').append(
                         '<tr>' +
                         '   <th scope="row"><a href="/issues/' + item.id + '">' + (response.pageable.offset + i + 1) + ' </a></th>' +
-                        '   <td>' + item.description + '</td>' +
-                        '    <td><a class="btn btn-primary" href="/pets/' + item.petId + '">pet</a></td>' +
+                        '   <td class="w-75">' + item.description + '</td>' +
+                        '   <td><a class="btn btn-secondary" href="/pets/' + item.petId + '">pet</a></td>' +
+                        isShowButtonByStatus(item) +
                         '</tr>'
                     );
                 }
                 $('ul.pagination').buildPagination(response);
             },
             error: function (e) {
-                console.log("ERROR: ", e);
+                console.log("Error fetchIssues: ", e);
+            }
+        });
+    }
+
+    $(document).on("click", ".update-status-in-progress", function () {
+        let id = $(this).attr('value');
+        console.log('progress: ' + id);
+        updateStatus(`issues/${id}/status`, "IN_PROGRESS");
+    });
+
+    $(document).on("click", ".update-status-close", function () {
+        let id = $(this).attr('value');
+        console.log('close: ' + id);
+        updateStatus(`issues/${id}/status`, "CLOSED");
+    });
+
+    function updateStatus(url, data) {
+        $.ajax({
+            type: "PUT",
+            url: url,
+            contentType: 'application/json',
+            dataType: 'text',
+            data: JSON.stringify(data),
+            success: function () {
+                fetchIssues(FIRST_PAGE);
+            },
+            error: function (e) {
+                console.log("Error updateStatus: ", e);
+                alert("Failed to update status")
             }
         });
     }
