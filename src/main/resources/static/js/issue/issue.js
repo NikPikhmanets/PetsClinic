@@ -2,7 +2,7 @@ $(document).ready(function () {
     function fetchInfoAboutPet(petId) {
         $.ajax({
             type: "GET",
-            url: `/pets/${petId}`,
+            url: `/pets/info/${petId}`,
             success: function (pet) {
                 console.log(pet);
                 $('#petInfo').text(`Pet: ${pet.name} (${pet.kind})`);

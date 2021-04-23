@@ -7,6 +7,7 @@ import com.defaultvalue.petsclinic.pet.kind.KindOfPet;
 import com.defaultvalue.petsclinic.pet.kind.KindOfPetRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -38,16 +39,23 @@ public class PetController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.OK)
     public void addPet(PetFormDTO petFormDTO) {
         petService.savePet(petFormDTO.getName(), petFormDTO.getKindId());
     }
 
     @GetMapping("/{id}")
-    public String getPetById(Model model, @PathVariable Long id) throws NotFoundException {
+    public String getViewWithPetById(Model model, @PathVariable Long id) throws NotFoundException {
         PetShortInfoDTO pet = petService.getPetById(id);
         model.addAttribute("pet", pet);
 
         return "pet";
+    }
+
+    @GetMapping("/info/{id}")
+    @ResponseBody
+    public PetShortInfoDTO getPetById(@PathVariable Long id) throws NotFoundException {
+        return petService.getPetById(id);
     }
 
     @GetMapping
@@ -57,6 +65,7 @@ public class PetController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id) {
         petRepository.deleteById(id);
     }
