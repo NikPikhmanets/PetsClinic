@@ -83,8 +83,4 @@ public class RegistrationForm {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
-
-    public boolean isPasswordMatch() {
-        return password.equals(passwordConfirm);
-    }
 }

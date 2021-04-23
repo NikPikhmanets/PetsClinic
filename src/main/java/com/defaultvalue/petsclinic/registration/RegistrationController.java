@@ -3,11 +3,12 @@ package com.defaultvalue.petsclinic.registration;
 import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
 import com.defaultvalue.petsclinic.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -15,17 +16,18 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
 
-    @Value("Duplicate.userForm.email")
-    private String duplicateEmail;
-
-    @Value("Diff.userForm.passwordConfirm")
-    private String diffPassword;
-
+    private final RegistrationValidator registrationValidator;
     private final UserService userService;
 
     @Autowired
-    public RegistrationController(UserService userService) {
+    public RegistrationController(RegistrationValidator registrationValidator, UserService userService) {
+        this.registrationValidator = registrationValidator;
         this.userService = userService;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder wdb) {
+        wdb.addValidators(registrationValidator);
     }
 
     @GetMapping("/registration")
@@ -37,22 +39,12 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registration(@Valid RegistrationForm registrationForm,
-                               BindingResult bindingResult) {
+                               BindingResult bindingResult) throws UserAlreadyExistException {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if (!registrationForm.isPasswordMatch()) {
-            bindingResult.rejectValue("passwordConfirm", diffPassword);
-            return "registration";
-        }
+        userService.saveUser(registrationForm);
 
-        try {
-            userService.saveUser(registrationForm);
-        } catch (UserAlreadyExistException e) {
-            e.printStackTrace();
-            bindingResult.rejectValue("email", duplicateEmail);
-            return "registration";
-        }
         return "redirect:/login";
     }
 }
