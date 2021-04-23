@@ -35,11 +35,6 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue findById(Long id) {
-        return issueRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found"));
-    }
-
-    @Override
     public Page<Issue> findAllByDoctorWithStatus(int page, String status) {
         if (status.equalsIgnoreCase("ALL")) {
             return issueRepository.findAllByDoctorId(getUserDetailsId(), PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));

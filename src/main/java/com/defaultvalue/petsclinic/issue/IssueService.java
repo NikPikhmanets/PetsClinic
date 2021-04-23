@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 public interface IssueService {
     void save(IssueDTO issueDTO);
 
-    Issue findById(Long id);
-
     Page<Issue> findAllByDoctorWithStatus(int page, String status);
 
     Page<Issue> findAllNewIssue(int page);

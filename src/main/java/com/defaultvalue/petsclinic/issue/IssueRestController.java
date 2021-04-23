@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.defaultvalue.petsclinic.issue.IssueController.ROLE_DOCTOR;
 
@@ -39,7 +40,7 @@ public class IssueRestController {
 
     @GetMapping("/info/{id}")
     public Issue getIssueById(@PathVariable Long id) {
-        return issueService.findById(id);
+        return issueRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Issue with ID:" + id + " not found"));
     }
 
     @GetMapping("/status/{status}")
