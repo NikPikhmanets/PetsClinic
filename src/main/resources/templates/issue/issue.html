@@ -6,8 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
-<th:block th:include="/navbar/navbar">nav</th:block>
-<div class="container bg-light p-5 h-100">
+<div th:include="/navbar/navbar">nav</div>
+<div class="container bg-light pt-5 pb-lg-5 h-100">
     <div id="issue-id" th:th:value='${issueId}'></div>
 
     <h3>Page of Issue</h3>
@@ -44,6 +44,7 @@
         </tbody>
     </table>
 </div>
+<div th:include="/footer/footer">nav</div>
 <script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/issue/issue.js}"></script>
 </body>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
-<th:block th:include="/navbar/navbar">nav</th:block>
+<div th:include="/navbar/navbar">nav</div>
 <div class="container">
     <div class="d-block p-5 text-center">
         <h5 class="mb-5">Make an appointment with a doctor</h5>
@@ -71,9 +71,7 @@
         </div>
     </section>
 </div>
-<footer class="bg-dark modal-footer d-block pt-4 pb-3">
-    <p class="text-center text-white">© 2021 Pets Clinic</p>
-</footer>
+<div th:include="/footer/footer">nav</div>
 <script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/index.js}"></script>
 </body>

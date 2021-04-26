@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"-->
-    <!--          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
 </head>
 <body>
-<th:block th:include="/navbar/navbar">nav</th:block>
+<div th:include="/navbar/navbar">nav</div>
 <div class="container bg-light p-5 h-100">
 
     <div class="d-flex align-items-end">
@@ -98,6 +96,7 @@
         </tbody>
     </table>
 </div>
+<div th:include="/footer/footer">nav</div>
 <script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/profile.js}"></script>
 </body>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -59,7 +58,7 @@
     <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block">Create Account</button>
     </div>
-    <p class="text-center">Have an account? <a href="/login">Log In</a></p>
+    <p class="text-center">Have an account? <a th:href="@{/login}">Log In</a></p>
 </form>
 </body>
 </html>

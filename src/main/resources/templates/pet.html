@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
-<th:block th:include="/navbar/navbar">nav</th:block>
+<div th:include="/navbar/navbar">nav</div>
 <div class="container bg-light p-5 h-100">
     <h3> Profile of pet</h3>
 
@@ -59,6 +59,7 @@
         </ul>
     </nav>
 </div>
+<div th:include="/footer/footer">nav</div>
 <script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/pet.js}"></script>
 <script th:src="@{/js/pagination/pagination.js}"></script>

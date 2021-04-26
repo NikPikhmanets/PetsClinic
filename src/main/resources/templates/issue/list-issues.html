@@ -6,8 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
-<th:block th:include="/navbar/navbar">nav</th:block>
-<div class="container bg-light p-5 h-100">
+<div th:include="/navbar/navbar">nav</div>
+<div class="container bg-light pt-5 pb-lg-5 h-100">
     <h2>List of new Issue</h2>
 
     <table class="table mt-5">
@@ -30,6 +30,7 @@
         </ul>
     </nav>
 </div>
+<div th:insert="/footer/footer"></div>
 <script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/issue/list-issues.js}"></script>
 <script th:src="@{/js/pagination/pagination.js}"></script>
