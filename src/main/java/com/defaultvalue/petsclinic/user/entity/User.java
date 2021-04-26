@@ -1,6 +1,6 @@
 package com.defaultvalue.petsclinic.user.entity;
 
-import com.defaultvalue.petsclinic.user.Specialties;
+import com.defaultvalue.petsclinic.user.specialty.Specialty;
 import com.defaultvalue.petsclinic.user.role.Role;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -41,7 +41,7 @@ public class User {
             name = "specialties_doctors",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "specialty_id"))
-    private Specialties specialties;
+    private Specialty specialty;
 
     public Long getId() {
         return id;
@@ -131,12 +131,12 @@ public class User {
         this.roles = roles;
     }
 
-    public Specialties getSpecialties() {
-        return specialties;
+    public Specialty getSpecialties() {
+        return specialty;
     }
 
-    public void setSpecialties(Specialties specialties) {
-        this.specialties = specialties;
+    public void setSpecialties(Specialty specialty) {
+        this.specialty = specialty;
     }
 
     @Override

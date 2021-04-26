@@ -1,4 +1,4 @@
-package com.defaultvalue.petsclinic.user;
+package com.defaultvalue.petsclinic.user.specialty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "specialties")
-public class Specialties {
+public class Specialty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,5 @@
 package com.defaultvalue.petsclinic.user.specialty;
 
-import com.defaultvalue.petsclinic.user.Specialties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,7 @@ public class SpecialtyController {
     }
 
     @GetMapping
-    public List<Specialties> specialties() {
+    public List<Specialty> specialties() {
         return specialtyRepository.findAll();
     }
 }
