@@ -10,12 +10,6 @@ import org.springframework.validation.Validator;
 @Component
 public class RegistrationValidator implements Validator {
 
-    @Value("Duplicate.userForm.email")
-    private String duplicateEmail;
-
-    @Value("Diff.userForm.passwordConfirm")
-    private String diffPassword;
-
     private final UserDetailsService userService;
 
     @Autowired
@@ -32,12 +26,14 @@ public class RegistrationValidator implements Validator {
     public void validate(Object target, Errors errors) {
         RegistrationForm form = (RegistrationForm) target;
 
-        if (userService.loadUserByUsername(form.getEmail()) != null) {
-            errors.rejectValue("email", duplicateEmail);
+        if (!form.getEmail().trim().isEmpty()) {
+            if (userService.loadUserByUsername(form.getEmail()) != null) {
+                errors.rejectValue("email", "Duplicate.userForm.email");
+            }
         }
 
         if (!form.getPassword().equals(form.getPasswordConfirm())) {
-            errors.rejectValue("passwordConfirm", diffPassword);
+            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
     }
 }

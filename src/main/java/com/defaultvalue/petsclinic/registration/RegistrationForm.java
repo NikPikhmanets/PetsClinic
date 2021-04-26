@@ -1,9 +1,6 @@
 package com.defaultvalue.petsclinic.registration;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class RegistrationForm {
@@ -22,8 +19,8 @@ public class RegistrationForm {
 
     @NotNull
     @Size(min = 2, max = 16)
-
     private String password;
+
     @NotNull
     @Size(min = 2, max = 16)
     private String passwordConfirm;
