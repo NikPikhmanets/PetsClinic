@@ -11,27 +11,33 @@
 
     <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active" sec:authorize="isAnonymous()">
-                <a class="nav-link" href="/registration">Registration</a>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link" th:href="@{/registration}">Registration</a>
             </li>
-            <li class="nav-item active" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/users/profile">Profile</a>
+            <li class="nav-item"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/users/profile' ? 'active':''}"
+                sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/users/profile}">Profile</a>
             </li>
-            <li class="nav-item active" sec:authorize="hasRole('DOCTOR')">
-                <a class="nav-link" href="/issues">Issues</a>
+            <li class="nav-item"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/issues' ? 'active':''}"
+                sec:authorize="hasRole('DOCTOR')">
+                <a class="nav-link" th:href="@{/issues}">Issues</a>
             </li>
-            <li class="nav-item active" sec:authorize="hasRole('DOCTOR')">
-                <a class="nav-link" href="/works">Works</a>
+            <li class="nav-item"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/works' ? 'active':''}"
+                sec:authorize="hasRole('DOCTOR')">
+                <a class="nav-link" th:href="@{/works}">Works</a>
             </li>
         </ul>
-        <div class="nav-item active" sec:authorize="isAnonymous()">
-            <a class="nav-link" href="/login">Sign In</a>
+        <div class="nav-item" sec:authorize="isAnonymous()">
+            <a class="nav-link" th:href="@{/login}">Sign In</a>
         </div>
-        <div class="nav-item active text-white" sec:authorize="isAuthenticated()">
+        <div class="nav-item text-white" sec:authorize="isAuthenticated()">
             <div sec:authentication="name"></div>
         </div>
-        <div class="nav-item active" sec:authorize="isAuthenticated()">
-            <a class="nav-link" href="/logout">Logout</a>
+        <div class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
         </div>
     </div>
 </nav>
