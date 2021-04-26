@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div th:include="/navbar/navbar">nav</div>
+<div class="container">
+    <h2 class="mt-5 mb-5">Admin page</h2>
+
+    <div class="form-group mt-5">
+        <label for="selected-users"> Select status:</label>
+        <select class="form-control" id="selected-users">
+        </select>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="" scope="col">#</th>
+            <th class="d-flex justify-content-center" scope="col">User</th>
+            <th class="" scope="col">Action</th>
+            <th class="" scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td class="w-50 ml-5">User</td>
+            <td class="w-25">
+                <label class="w-100">
+                    <select class="custom-select d-flex justify-content-center">
+                        <option>A</option>
+                        <option selected>B</option>
+                        <option>C</option>
+                        <option>E</option>
+                    </select>
+                </label>
+            </td>
+            <td class="w-25">
+                <button type="button" class="btn btn-secondary d-flex justify-content-center">Set</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:include="/footer/footer">nav</div>
+<script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/admin.js}"></script>
+</body>
+</html>
