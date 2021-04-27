@@ -30,10 +30,10 @@
         <tbody id="table-of-users">
         <tr>
             <th scope="row">1</th>
-            <td class="w-50 ml-5">User</td>
+            <td class="w-50">User</td>
             <td class="w-25">
                 <label class="w-100">
-                    <select class="custom-select d-flex justify-content-center">
+                    <select class="custom-select d-flex justify-content-center" id="specialty-selected">
                         <option>A</option>
                         <option selected>B</option>
                         <option>C</option>
@@ -55,8 +55,8 @@
         </ul>
     </nav>
 </div>
-<div th:include="/footer/footer">nav</div>
 <script th:src="@{/js/jquery/jquery-3.6.0.min.js}"></script>
 <script th:src="@{/js/admin.js}"></script>
+<script th:src="@{/js/pagination/pagination.js}"></script>
 </body>
 </html>
