@@ -5,19 +5,27 @@ import com.defaultvalue.petsclinic.user.entity.User;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DoctorDTO {
+public class UserShortInfoDTO {
 
+    private long id;
     private String name;
     private String surname;
-    private String specialty;
 
-    public DoctorDTO() {
+    public UserShortInfoDTO() {
     }
 
-    private DoctorDTO(String name, String surname, String specialty) {
+    private UserShortInfoDTO(long id, String name, String surname) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
-        this.specialty = specialty;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -36,17 +44,9 @@ public class DoctorDTO {
         this.surname = surname;
     }
 
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-
-    public List<DoctorDTO> getListDoctorDTO(List<User> users) {
+    public List<UserShortInfoDTO> getListUserShortInfoDTO(List<User> users) {
         return users.stream()
-                .map(user -> new DoctorDTO(user.getName(), user.getSurname(), user.getSpecialties().getName()))
+                .map(user -> new UserShortInfoDTO(user.getId(), user.getName(), user.getSurname()))
                 .collect(Collectors.toList());
     }
 }

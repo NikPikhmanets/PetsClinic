@@ -1,7 +1,7 @@
 package com.defaultvalue.petsclinic.user.entity;
 
-import com.defaultvalue.petsclinic.user.specialty.Specialty;
 import com.defaultvalue.petsclinic.user.role.Role;
+import com.defaultvalue.petsclinic.user.specialty.Specialty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +11,17 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "User"
+        ),
+        @NamedEntityGraph(
+                name = "User.specialties",
+                attributeNodes = {
+                        @NamedAttributeNode("specialties")
+                }
+        )
+})
 @Entity(name = "users")
 public class User {
 
@@ -41,7 +52,7 @@ public class User {
             name = "specialties_doctors",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "specialty_id"))
-    private Specialty specialty;
+    private Specialty specialties;
 
     public Long getId() {
         return id;
@@ -132,11 +143,11 @@ public class User {
     }
 
     public Specialty getSpecialties() {
-        return specialty;
+        return specialties;
     }
 
     public void setSpecialties(Specialty specialty) {
-        this.specialty = specialty;
+        this.specialties = specialty;
     }
 
     @Override

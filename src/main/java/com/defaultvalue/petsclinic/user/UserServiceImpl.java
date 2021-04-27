@@ -4,21 +4,28 @@ import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
 import com.defaultvalue.petsclinic.exceptions.UserNotFoundException;
 import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.registration.RegistrationForm;
+import com.defaultvalue.petsclinic.user.dto.DoctorDTO;
 import com.defaultvalue.petsclinic.user.dto.ImmutableUserDTO;
 import com.defaultvalue.petsclinic.user.dto.UserDTO;
+import com.defaultvalue.petsclinic.user.dto.UserShortInfoDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.Role;
 import com.defaultvalue.petsclinic.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static com.defaultvalue.petsclinic.issue.IssueServiceImpl.SIZE_PAGE;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,30 +79,26 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    @Override
+    public Page<UserShortInfoDTO> getPageableUsers(int page) {
+        Page<User> usersPage = userRepository.findAllBySpecialtiesIsNull(PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
+        List<UserShortInfoDTO> listUserShortInfoDTO = new UserShortInfoDTO().getListUserShortInfoDTO(usersPage.getContent());
+
+        return new PageImpl<>(listUserShortInfoDTO, usersPage.getPageable(), usersPage.getTotalElements());
+    }
+
+    @Override
+    public Page<DoctorDTO> getPageableDoctors(int page) {
+        Page<User> doctorsPage = userRepository.findAllBySpecialtiesIsNotNull(PageRequest.of(page, SIZE_PAGE, Sort.by("id").descending()));
+        List<DoctorDTO> dtoList = new DoctorDTO().getListDoctorDTO(doctorsPage.getContent());
+
+        return new PageImpl<>(dtoList, doctorsPage.getPageable(), doctorsPage.getTotalElements());
+    }
+
     private long getUserDetailsId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         return userDetails.getId();
-    }
-
-    @Override
-    public List<User> getAllDoctors() {
-        return buildTestUsers();
-    }
-
-    private List<User> buildTestUsers() {
-        List<User> list = new ArrayList<>();
-
-        for (int i = 1; i <= 10; i++) {
-            User user = new User();
-            user.setId((long) i);
-            user.setName("username" + (i * 31));
-            user.setSurname("surname" + (i * 31));
-            user.setEmail("email" + (i * 31));
-            user.setPhoneNumber("phoneNumber" + (i * 31));
-            list.add(user);
-        }
-        return list;
     }
 }
