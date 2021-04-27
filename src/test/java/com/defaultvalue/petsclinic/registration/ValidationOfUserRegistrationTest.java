@@ -1,6 +1,5 @@
 package com.defaultvalue.petsclinic.registration;
 
-import com.defaultvalue.petsclinic.exceptions.UserAlreadyExistException;
 import com.defaultvalue.petsclinic.user.UserService;
 import com.defaultvalue.petsclinic.user.entity.User;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -148,21 +146,6 @@ class ValidationOfUserRegistrationTest {
                 .param("email", "aa@bb")
                 .param("password", "1")
                 .param("passwordConfirm", "1");
-
-        mockMvc.perform(createPerson)
-                .andExpect(model().hasErrors())
-                .andExpect(view().name("registration"));
-    }
-
-    @Test
-    public void checkPersonInfoWhenEmailIsExistThenFailure() throws Exception {
-        MockHttpServletRequestBuilder createPerson = post("/registration")
-                .param("firstName", "aa")
-                .param("surname", "bb")
-                .param("email", "aa@bb")
-                .param("password", "123")
-                .param("passwordConfirm", "123");
-        when(userService.saveUser(any(RegistrationForm.class))).thenThrow(UserAlreadyExistException.class);
 
         mockMvc.perform(createPerson)
                 .andExpect(model().hasErrors())

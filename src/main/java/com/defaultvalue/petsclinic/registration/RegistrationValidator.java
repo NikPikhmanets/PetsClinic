@@ -1,5 +1,6 @@
 package com.defaultvalue.petsclinic.registration;
 
+import com.defaultvalue.petsclinic.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,11 +11,11 @@ import org.springframework.validation.Validator;
 @Component
 public class RegistrationValidator implements Validator {
 
-    private final UserDetailsService userService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public RegistrationValidator(UserDetailsService userService) {
-        this.userService = userService;
+    public RegistrationValidator(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class RegistrationValidator implements Validator {
         RegistrationForm form = (RegistrationForm) target;
 
         if (!form.getEmail().trim().isEmpty()) {
-            if (userService.loadUserByUsername(form.getEmail()) != null) {
+            if (userRepository.findByEmail(form.getEmail()) != null) {
                 errors.rejectValue("email", "Duplicate.userForm.email");
             }
         }
