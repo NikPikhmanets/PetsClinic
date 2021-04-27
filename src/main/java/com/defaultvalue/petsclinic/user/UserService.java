@@ -16,4 +16,8 @@ public interface UserService {
     Page<UserShortInfoDTO> getPageableUsers(int page);
 
     Page<DoctorDTO> getPageableDoctors(int page);
+
+    void enableRoleDoctor(long userId, long specialtyId);
+
+    void disableRoleDoctor(long userId);
 }

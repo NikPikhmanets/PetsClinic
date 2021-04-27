@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class DoctorDTO {
 
+    private long id;
     private String name;
     private String surname;
     private String specialty;
@@ -14,10 +15,19 @@ public class DoctorDTO {
     public DoctorDTO() {
     }
 
-    private DoctorDTO(String name, String surname, String specialty) {
+    private DoctorDTO(long id, String name, String surname, String specialty) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.specialty = specialty;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -46,7 +56,7 @@ public class DoctorDTO {
 
     public List<DoctorDTO> getListDoctorDTO(List<User> users) {
         return users.stream()
-                .map(user -> new DoctorDTO(user.getName(), user.getSurname(), user.getSpecialties().getName()))
+                .map(user -> new DoctorDTO(user.getId(), user.getName(), user.getSurname(), user.getSpecialties().getName()))
                 .collect(Collectors.toList());
     }
 }

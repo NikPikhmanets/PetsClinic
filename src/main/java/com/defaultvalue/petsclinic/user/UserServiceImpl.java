@@ -11,6 +11,8 @@ import com.defaultvalue.petsclinic.user.dto.UserShortInfoDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.Role;
 import com.defaultvalue.petsclinic.user.role.RoleRepository;
+import com.defaultvalue.petsclinic.user.specialty.Specialty;
+import com.defaultvalue.petsclinic.user.specialty.SpecialtyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,22 +26,29 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.defaultvalue.petsclinic.issue.IssueServiceImpl.SIZE_PAGE;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final String NAME_DOCTOR_ROLE = "DOCTOR";
     private static final String ROLE_USER = "USER";
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final SpecialtyRepository specialtyRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           SpecialtyRepository specialtyRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.specialtyRepository = specialtyRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -93,6 +102,28 @@ public class UserServiceImpl implements UserService {
         List<DoctorDTO> dtoList = new DoctorDTO().getListDoctorDTO(doctorsPage.getContent());
 
         return new PageImpl<>(dtoList, doctorsPage.getPageable(), doctorsPage.getTotalElements());
+    }
+
+    @Override
+    public void disableRoleDoctor(long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        user.setSpecialties(null);
+        Set<Role> userRoles = user.getRoles();
+        userRoles.removeIf(userRole -> userRole.getName().equals(NAME_DOCTOR_ROLE));
+        user.setRoles(userRoles);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void enableRoleDoctor(long userId, long specialtyId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        List<Role> roles = roleRepository.findAll();
+        Specialty specialty = specialtyRepository.findById(specialtyId).orElseThrow();
+        user.setSpecialties(specialty);
+        Set<Role> userRoles = user.getRoles();
+        roles.stream().filter(role -> role.getName().equals(NAME_DOCTOR_ROLE)).forEach(userRoles::add);
+        user.setRoles(userRoles);
+        userRepository.save(user);
     }
 
     private long getUserDetailsId() {
