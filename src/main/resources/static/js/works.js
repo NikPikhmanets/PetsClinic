@@ -24,7 +24,7 @@ $(document).ready(function () {
                     if (item.statusIssue === 'IN_PROGRESS') {
                         return '<td><button class="btn btn-danger update-status-close" value="' + item.id + '">Close</button></td>';
                     }
-                    return '<td>Closed</td>';
+                    return '<td class="pt-3">Closed</td>';
                 }
 
                 for (let i = 0; i < response.content.length; i++) {
