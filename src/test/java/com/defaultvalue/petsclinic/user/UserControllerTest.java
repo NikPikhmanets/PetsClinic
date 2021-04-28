@@ -1,7 +1,10 @@
 package com.defaultvalue.petsclinic.user;
 
+import com.defaultvalue.petsclinic.user.dto.DoctorDTO;
 import com.defaultvalue.petsclinic.user.dto.ImmutableUserDTO;
+import com.defaultvalue.petsclinic.user.dto.UserShortInfoDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
+import com.defaultvalue.petsclinic.user.specialty.Specialty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,15 +24,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = UserController.class)
 @Import(UserController.class)
 class UserControllerTest {
+
+    private final int SIZE_PAGE = 10;
 
     private LocalDate testDate;
     private List<User> users;
@@ -44,12 +54,14 @@ class UserControllerTest {
         users = new ArrayList<>();
 
         for (long i = 1; i <= 10; i++) {
+            Specialty specialty = new Specialty();
+            specialty.setName("specialty" + i);
+
             User user = new User();
             user.setId(i);
             user.setName("username" + i);
             user.setSurname("surname" + i);
-            user.setEmail("email" + i);
-            user.setPhoneNumber("phoneNumber" + i);
+            user.setSpecialties(specialty);
             users.add(user);
         }
     }
@@ -85,11 +97,35 @@ class UserControllerTest {
 
     @Test
     void shouldFetchAllUsers() throws Exception {
-        given(userService.getAllDoctors()).willReturn(users);
+        List<UserShortInfoDTO> listUserShortInfoDTO = new UserShortInfoDTO().getListUserShortInfoDTO(users);
+        PageImpl<UserShortInfoDTO> userShortInfoDTOS = new PageImpl<>(listUserShortInfoDTO, PageRequest.of(0, SIZE_PAGE), users.size());
+        when(userService.getPageableUsers(anyInt())).thenReturn(userShortInfoDTOS);
+
+        this.mockMvc.perform(get("/users"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements").value(10))
+                .andExpect(jsonPath("$.content.length()").value(10))
+                .andExpect(jsonPath("$.content[0].id").value(1))
+                .andExpect(jsonPath("$.content[0].name").value("username1"))
+                .andExpect(jsonPath("$.content[0].surname").value("surname1"));
+    }
+
+    @Test
+    void shouldFetchAllDoctors() throws Exception {
+        List<DoctorDTO> listUserShortInfoDTO = new DoctorDTO().getListDoctorDTO(users);
+        Page<DoctorDTO> doctorDTOS = new PageImpl<>(listUserShortInfoDTO, PageRequest.of(0, SIZE_PAGE), users.size());
+        when(userService.getPageableDoctors(anyInt())).thenReturn(doctorDTOS);
 
         this.mockMvc.perform(get("/users/doctors"))
+                .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(users.size())));
+                .andExpect(jsonPath("$.totalElements").value(10))
+                .andExpect(jsonPath("$.content.length()").value(10))
+                .andExpect(jsonPath("$.content[0].id").value(1))
+                .andExpect(jsonPath("$.content[0].name").value("username1"))
+                .andExpect(jsonPath("$.content[0].surname").value("surname1"))
+                .andExpect(jsonPath("$.content[0].specialty").value("specialty1"));
     }
 
     @Configuration
