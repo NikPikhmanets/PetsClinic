@@ -5,6 +5,7 @@ import com.defaultvalue.petsclinic.login.UserDetailsImpl;
 import com.defaultvalue.petsclinic.user.dto.UserDTO;
 import com.defaultvalue.petsclinic.user.entity.User;
 import com.defaultvalue.petsclinic.user.role.RoleRepository;
+import com.defaultvalue.petsclinic.user.specialty.SpecialtyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,7 @@ class UserServiceImplTest {
     private User user;
 
     private UserRepository userRepository;
+    private SpecialtyRepository specialtyRepository;
     private UserService userService;
 
     @BeforeEach
@@ -56,9 +58,10 @@ class UserServiceImplTest {
         when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(userDetails);
 
         userRepository = mock(UserRepository.class);
+        specialtyRepository = mock(SpecialtyRepository.class);
         RoleRepository roleRepository = mock(RoleRepository.class);
         BCryptPasswordEncoder bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
-        userService = new UserServiceImpl(userRepository, roleRepository, bCryptPasswordEncoder);
+        userService = new UserServiceImpl(userRepository, roleRepository, specialtyRepository, bCryptPasswordEncoder);
     }
 
     @Test
