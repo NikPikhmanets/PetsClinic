@@ -24,6 +24,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
@@ -67,7 +69,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void shouldReturnProfilePageIfNoAuthentication() throws Exception {
+    public void shouldReturnProfileWithUserInfo() throws Exception {
         User user = new User();
         user.setName("name");
         user.setSurname("surname");
@@ -92,7 +94,12 @@ class UserControllerTest {
         given(userService.getUserDTO()).willReturn(userDTO);
 
         mockMvc.perform(get("/users/profile"))
-                .andExpect(view().name("profile"));
+                .andExpect(view().name("profile"))
+                .andExpect(model().attribute("user", hasProperty("email", is("email"))))
+                .andExpect(model().attribute("user", hasProperty("surname", is("surname"))))
+                .andExpect(model().attribute("user", hasProperty("email", is("email"))))
+                .andExpect(model().attribute("user", hasProperty("phoneNumber", is("phone"))))
+                .andExpect(model().attribute("user", hasProperty("birthday", is(testDate))));
     }
 
     @Test
