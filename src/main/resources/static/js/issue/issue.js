@@ -5,7 +5,8 @@ $(document).ready(function () {
             url: `/pets/info/${petId}`,
             success: function (pet) {
                 console.log(pet);
-                $('#petInfo').text(`Pet: ${pet.name} (${pet.kind})`);
+                $('#name-pet').text(`   ${pet.name}`);
+                $('#kind-of-pet').text(`    ${pet.kind}`);
             },
             error: function (e) {
                 console.log("ERROR: ", e);
@@ -22,6 +23,11 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response)
                 fetchInfoAboutPet(response.petId);
+
+                if (response.statusIssue === "CLOSED") {
+                    $('#add-comment').hide();
+                    $("#close-issue").hide();
+                }
 
                 $(`#visits-table`).empty();
                 let history = response.visits;
@@ -44,7 +50,7 @@ $(document).ready(function () {
         });
     }
 
-    $("#addComment").submit(function (e) {
+    $("#add-comment").submit(function (e) {
         e.preventDefault();
         let id = $('#issue-id').attr('value');
 
@@ -52,11 +58,12 @@ $(document).ready(function () {
             type: "post",
             url: `/issues/${id}/visits`,
             data: {
-                comment: $('#inputRecord').val()
+                comment: $('#input-comment').val()
             },
             success: function (data) {
                 console.log('Submission was successful.');
                 console.log(data);
+                fetchIssue();
             },
             error: function (data) {
                 console.log('An error occurred.');
@@ -65,16 +72,16 @@ $(document).ready(function () {
         });
     });
 
-    $("#closeIssue").submit(function (e) {
+    $("#close-issue").submit(function (e) {
         e.preventDefault();
         let id = $('#issue-id').attr('value');
 
         $.ajax({
-            type: "post",
-            url: `/issues/${id}`,
-            data: {
-                status: "close"
-            },
+            type: "PUT",
+            url: `${id}/status`,
+            contentType: 'application/json',
+            dataType: 'text',
+            data: JSON.stringify("CLOSED"),
             success: function (data) {
                 console.log('Submission was successful.');
                 console.log(data);
