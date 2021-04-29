@@ -33,7 +33,7 @@ import static com.defaultvalue.petsclinic.issue.IssueServiceImpl.SIZE_PAGE;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String NAME_DOCTOR_ROLE = "DOCTOR";
+    private static final String ROLE_DOCTOR = "DOCTOR";
     private static final String ROLE_USER = "USER";
 
     private final UserRepository userRepository;
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         user.setSpecialties(null);
         Set<Role> userRoles = user.getRoles();
-        userRoles.removeIf(userRole -> userRole.getName().equals(NAME_DOCTOR_ROLE));
+        userRoles.removeIf(userRole -> userRole.getName().equals(ROLE_DOCTOR));
         user.setRoles(userRoles);
         userRepository.save(user);
     }
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
         Specialty specialty = specialtyRepository.findById(specialtyId).orElseThrow();
         user.setSpecialties(specialty);
         Set<Role> userRoles = user.getRoles();
-        roles.stream().filter(role -> role.getName().equals(NAME_DOCTOR_ROLE)).forEach(userRoles::add);
+        roles.stream().filter(role -> role.getName().equals(ROLE_DOCTOR)).forEach(userRoles::add);
         user.setRoles(userRoles);
         userRepository.save(user);
     }
