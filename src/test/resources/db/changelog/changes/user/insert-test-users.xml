@@ -1,0 +1,38 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert-test-users" author="nik pikhmanets">
+        <comment>Insert test users</comment>
+        <insert tableName="users">
+            <column name="name" value="test-user-1"/>
+            <column name="surname" value="test-surname-1"/>
+            <column name="email" value="email-test1@mail"/>
+            <column name="password" value="$2y$12$ew9DCbbei9TIjFsL1vpOgeKIsEKZDScaLsQZlOSDjPlaTRGTbLIea"/>
+            <column name="phone_number" value="+380123456789"/>
+        </insert>
+        <insert tableName="users">
+            <column name="name" value="test-user-2"/>
+            <column name="surname" value="test-surname-2"/>
+            <column name="email" value="email-test2@mail"/>
+            <column name="password" value="$2y$12$ew9DCbbei9TIjFsL1vpOgeKIsEKZDScaLsQZlOSDjPlaTRGTbLIea"/>
+            <column name="phone_number" value="+380123456789"/>
+        </insert>
+        <insert tableName="users">
+            <column name="name" value="test-user-3"/>
+            <column name="surname" value="test-surname-3"/>
+            <column name="email" value="email-test3@mail"/>
+            <column name="password" value="$2y$12$ew9DCbbei9TIjFsL1vpOgeKIsEKZDScaLsQZlOSDjPlaTRGTbLIea"/>
+            <column name="phone_number" value="+380123456789"/>
+        </insert>
+        <insert tableName="users">
+            <column name="name" value="test-user-4"/>
+            <column name="surname" value="test-surname-4"/>
+            <column name="email" value="email-test4@mail"/>
+            <column name="password" value="$2y$12$ew9DCbbei9TIjFsL1vpOgeKIsEKZDScaLsQZlOSDjPlaTRGTbLIea"/>
+            <column name="phone_number" value="+380123456789"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

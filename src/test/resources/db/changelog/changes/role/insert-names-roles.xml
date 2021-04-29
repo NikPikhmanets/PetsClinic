@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert-names-roles" author="nik pikhmanets">
+        <comment>Insert names of Roles</comment>
+        <insert tableName="roles">
+            <column name="name" value="USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="DOCTOR"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ADMIN"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,45 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="changes/role/create-table-role.xml" relativeToChangelogFile="true"/>
+    <include file="changes/role/insert-names-roles.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/user/create-table-user.xml" relativeToChangelogFile="true"/>
+    <include file="changes/user/insert-admin.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/user-role/create-table-user-role.xml" relativeToChangelogFile="true"/>
+    <include file="changes/user-role/insert-role-for-admin.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/specialty/create-table-specialty.xml" relativeToChangelogFile="true"/>
+    <include file="changes/specialty/insert-names-speciality.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/specialty-doctor/create-table-specialty-doctor.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/kind-of-pet/create-table-kind-of-pet.xml" relativeToChangelogFile="true"/>
+    <include file="changes/kind-of-pet/insert-names-kind-of-pet.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/pet/create-table-pet.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/pet/drop-foreign-key-constraint-for-kind-id.xml" relativeToChangelogFile="true"/>
+    <include file="changes/pet/drop-column-kind-id.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/pet-kind/create-table-pet-kind.xml" relativeToChangelogFile="true"/>
+    <include file="changes/issue/create-table-issue.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/issue/modify-data-type-of-status-issue-to-string.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/issue/add-column-pet-id.xml" relativeToChangelogFile="true"/>
+    <include file="changes/issue/add-foreign-key-constraint-to-pet-id.xml" relativeToChangelogFile="true"/>
+    <include file="changes/issue/add-column-doctor-id.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/visit/create-table-visit.xml" relativeToChangelogFile="true"/>
+    <include file="changes/visit/add-column-issue-id.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/user/insert-test-users.xml" relativeToChangelogFile="true"/>
+    <include file="changes/user-role/insert-role-for-test-users.xml" relativeToChangelogFile="true"/>
+
+    <include file="changes/specialty-doctor/insert-test-specialty-for-user-1.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-table-pet" author="nik pikhmanets">
+        <comment>Create table of Pet</comment>
+        <createTable tableName="pets">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="kind_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_petkind_kinds" references="kinds_of_pets(id)"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_petuser_users" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
