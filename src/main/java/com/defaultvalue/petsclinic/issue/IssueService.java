@@ -9,10 +9,6 @@ public interface IssueService {
 
     Page<Issue> findAllByDoctorWithStatus(int page, String status);
 
-//    Page<Issue> findAllNewIssue(int page);
-
-//    Page<Issue> findAllByPetId(Long petId, int page);
-
     void assignIssue(Long id);
 
     void updateIssueStatus(Long id, StatusIssue status);

@@ -28,7 +28,6 @@ public class PetServiceIml implements PetService {
     public void savePet(String nameOfPet, long kindId) {
         long userId = getUserId();
         Pet pet = new Pet();
-        pet.setId(8L);
         pet.setName(nameOfPet);
         pet.setUserId(userId);
         KindOfPet kindOfPet = new KindOfPet();
