@@ -132,4 +132,19 @@ class UserControllerIntegrationTest {
         Set<Role> roles = user.getRoles();
         assertFalse(roles.contains(doctor));
     }
+
+    @Test
+    @WithCustomUserDetails(email = "email-test1@mail")
+    void setDoctorForUserByIdWithoutAdminRole_thenForbidden() throws Exception {
+        mockMvc.perform(get("/users/4/enable-role-doctor/specialty/2"))
+                .andExpect(status().isMethodNotAllowed());
+    }
+
+
+    @Test
+    @WithCustomUserDetails(email = "email-test1@mail")
+    void disableDoctorForUserByIdWithoutAdminRole_thenForbidden() throws Exception {
+        mockMvc.perform(get("/users/4/disable-role-doctor"))
+                .andExpect(status().isMethodNotAllowed());
+    }
 }
